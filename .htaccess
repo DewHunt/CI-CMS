@@ -1,4 +1,3 @@
-
  Options +FollowSymLinks
   RewriteEngine On
   Header set Access-Control-Allow-Origin *

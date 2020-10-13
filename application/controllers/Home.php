@@ -25,35 +25,10 @@ class Home extends CI_Controller {
     }
 
     public function index() {
-        // if (!empty($this->session->userdata('sessionUserInfo'))) {
-        	echo "Dew Hunt";
-            $this->data['title'] = "Dashboard";
-            // $user_info = $this->session->userdata('user_session');
-            // $user_id = $user_info['user_id']; // session user id
-            // $company_information = $this->Company_Model->get_company();
-            // $this->data['company_information'] = $company_information;
-            // $weekend_settings = $this->Weekend_settings_Model->get_weekend_settings();
-            // $this->data['weekend_settings'] = $weekend_settings;
-            // $login_log_details_with_limit = $this->Login_log_details_Model->get_login_log_details_with_limit(10);
-            // $this->data['login_log_details_with_limit'] = $login_log_details_with_limit;
-            // $this->load->view('header');
-            // $this->load->view('navigation');
-            // $this->load->view('front_page', $this->data);
-        // } else {
-        //     redirect(base_url('login'));
-        // }
+        $this->data['title'] = "Dashboard";
+
+        // $this->load->view('header');
+        // $this->load->view('navigation');
+        $this->load->view('admin/home/index', $this->data);
     }
-
-    // public function login_log_details_show_in_modal() {
-    //     if (!empty($this->session->userdata('user_session'))) {
-    //         $company_information = $this->Company_Model->get_company();
-    //         $this->data['company_information'] = $company_information;
-    //         $login_log_details_with_limit = $this->Login_log_details_Model->get_login_log_details_with_limit(100);
-    //         $this->data['login_log_details_with_limit'] = $login_log_details_with_limit;
-    //         $this->load->view('home/login_log_details_modal', $this->data);
-    //     } else {
-    //         redirect(base_url('user_login'));
-    //     }
-    // }
-
 }
