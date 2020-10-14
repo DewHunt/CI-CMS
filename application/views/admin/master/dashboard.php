@@ -14,20 +14,31 @@
 
     <body class="skin-default fixed-layout">
         <!-- Preloader -->
-        <?php include APPPATH.'views/admin/include/preloader.php'; ?>
+        <?php
+        	// include APPPATH.'views/admin/include/preloader.php';
+        ?>
 
         <!-- Main wrapper - style you can find in pages.scss -->
         <div id="main-wrapper">
             <!-- Topbar header - style you can find in pages.scss -->
-            <?php include APPPATH.'views/admin/include/top-navbar.php'; ?>
+            <?php
+            	include APPPATH.'views/admin/include/top-navbar.php';
+            ?>
+            <!-- End Topbar header -->
 
             <!-- Left Sidebar - style you can find in sidebar.scss  -->
-            <?php include APPPATH.'views/admin/include/menu.php'; ?>
+            <?php
+            	include APPPATH.'views/admin/include/menu.php';
+            ?>
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
 
             <!-- Page wrapper  -->
             <div class="page-wrapper">
                 <!-- Container fluid  -->
                 <div class="container-fluid">
+                    <!-- Bread crumb and right sidebar toggle -->
+                    <!-- End Bread crumb and right sidebar toggle -->
+
                     <div style="padding-bottom: 10px;"></div>
 
                     <?php if (isset($message)): ?>
@@ -93,15 +104,20 @@
                             </div>
                         </div>
                     </div>
+                    <!-- End PAge Content -->
 
                     <!-- Right sidebar -->
                     <?php include APPPATH.'views/admin/include/right-sidebar.php'; ?>
                 </div>
+                <!-- End Container fluid  -->
             </div>
+            <!-- End Page wrapper  -->
 
             <!-- footer -->
             <?php include APPPATH.'views/admin/include/footer.php'; ?>
+            <!-- End footer -->
         </div>
+        <!-- End Wrapper -->
 
         <?php include APPPATH.'views/admin/include/footer-assets.php'; ?>
     </body>
