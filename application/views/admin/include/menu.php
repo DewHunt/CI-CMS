@@ -1,62 +1,15 @@
 <?php
     $sessionUserMenuInfo = (object) $this->session->userdata('sessionUserInfo');
-    $userMenus = $this->db->query('SELECT * FROM tbl_menus WHERE status = 1 ORDER BY order_by ASC')->result();
     $roleId = $sessionUserMenuInfo->role;
-    $userRoles = $this->db->query('SELECT * FROM tbl_user_roles WHERE id = '.$roleId)->row();
-    echo $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
-    $userMenuAction = $this->db->query('SELECT * FROM tbl_menu_actions WHERE action_link = "'.$routeName.'"')->row();
-
-    if (!empty($userMenuAction)) {
-        // $childMenuRoute = $this->db->query('SELECT * FROM tbl_menus WHERE id = '.$userMenuAction->parent_menu_id)->row();
-        // $parentMenuRoute = $this->db->query('SELECT * FROM tbl_menus WHERE id = '.$childMenuRoute->parent_menu)->row();
-        // $rootMenuRoute = $this->db->query('SELECT * FROM tbl_menus WHERE id = '.$parentMenuRoute->parent_menu)->row();
-    } else {
-        $childMenuRoute = $this->db->query('SELECT * FROM tbl_menus WHERE menu_link = "'.$routeName.'"')->row();
-
-        if (empty($childMenuRoute->parent_menu)) {
-            $parentMenuRoute = [];
-        } else {
-            $parentMenuRoute = $this->db->query('SELECT * FROM tbl_menus WHERE id = '.$childMenuRoute->parent_menu)->row();
-        }
-
-        if (empty($parentMenuRoute->parent_menu)) {
-            $rootMenuRoute = [];
-        } else {
-            $rootMenuRoute = $this->db->query('SELECT * FROM tbl_menus WHERE id = '.$parentMenuRoute->parent_menu)->row();
-        }
-        
-    }
+    // echo $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+    $userRole = $this->db->query('SELECT * FROM tbl_user_roles WHERE id = '.$roleId)->row();
+    $userMenus = $this->db->query('SELECT * FROM tbl_menus WHERE id IN ('.$userRole->permission.') AND status = 1 ORDER BY order_by ASC')->result();
+    $userMenuAction = $this->db->query('SELECT * FROM tbl_menu_actions WHERE id IN ('.$userRole->action_permission.') AND status = 1 ORDER BY order_by ASC')->result();
 
     echo "<pre>";
-    print_r($rootMenuRoute);
+    print_r($userMenuAction);
     exit();
 ?>
-
-
-@php
-    use App\Menu;
-    use App\MenuAction;
-    use App\UserRoles;
-
-    $userMenus = Menu::where('status',1)->orderBy('order_by','ASC')->get();
-    $roleId =  Auth::user()->role;
-    $userRoles = UserRoles::where('id',$roleId)->first();
-    $routeName = \Request::route()->getName();
-    $userMenuAction = MenuAction::where('action_link',$routeName)->first();
-
-    if ($userMenuAction)
-    {
-        $childMenuRoute = Menu::where('id',@$userMenuAction->parent_menu_id)->first();
-        $parentMenuRoute = Menu::where('id',@$childMenuRoute->parent_menu)->first();
-        $rootMenuRoute = Menu::where('id',@$parentMenuRoute->parent_menu)->first();
-    }
-    else
-    {
-        $childMenuRoute = Menu::where('menu_link',@$routeName)->first();
-        $parentMenuRoute = Menu::where('id',@$childMenuRoute->parent_menu)->first();
-        $rootMenuRoute = Menu::where('id',@$parentMenuRoute->parent_menu)->first();
-    }
-@endphp
             <aside class="left-sidebar">
                 <!-- Sidebar scroll-->
                 <div class="scroll-sidebar">

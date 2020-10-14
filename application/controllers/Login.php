@@ -32,7 +32,7 @@ class Login extends CI_Controller {
     public function LoginAction()
     {
     	$userNameOrEmail = $this->input->post('userNameOrEmail');
-    	echo $password = sha1(trim($this->input->post('password')));
+    	$password = sha1(trim($this->input->post('password')));
 
     	$loginStatus = $this->UserModel->getUserInfoByUserNameOrEmailAndPassword($userNameOrEmail,$password);
 
@@ -43,7 +43,7 @@ class Login extends CI_Controller {
     			'email' => $loginStatus->email,
     			'user_name' => $loginStatus->user_name,
     			'role' => $loginStatus->role,
-    			'staus' => $loginStatus->statu
+    			'status' => $loginStatus->status,
     		);
     		$this->session->set_userdata('sessionUserInfo',$userInformationData);
 
