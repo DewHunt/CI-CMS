@@ -14,7 +14,7 @@
 
     <body class="skin-default fixed-layout">
         <!-- Preloader -->
-        <?php include APPPATH.'views/admin/include/preloader.php'; ?>
+        <?php //include APPPATH.'views/admin/include/preloader.php'; ?>
 
         <!-- Main wrapper - style you can find in pages.scss -->
         <div id="main-wrapper">

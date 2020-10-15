@@ -1,14 +1,17 @@
 <?php
-    $sessionUserMenuInfo = (object) $this->session->userdata('sessionUserInfo');
-    $roleId = $sessionUserMenuInfo->role;
+    $roleId = $this->session->userdata('sessionUserInfo')['role'];
 
     if ($roleId == 2) {
-        $rootMenus = $this->db->query("SELECT * FROM tbl_menus WHERE parent_menu IS NULL AND status = 1 ORDER BY order_by ASC")->result();
+        $permission = "";
     } else {
         $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
-        $rootMenus = $this->db->query("SELECT * FROM tbl_menus WHERE id IN ($userRole->permission) AND parent_menu IS NULL AND status = 1 ORDER BY order_by ASC")->result();
-    }    
-    // echo $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+        $permission = "id IN ($userRole->permission) AND";
+    }
+
+    $rootMenus = $this->db->query("SELECT * FROM tbl_menus WHERE $permission parent_menu IS NULL AND status = 1 ORDER BY order_by ASC")->result();
+
+    // echo "<pre>";
+    // print_r($userRole); exit();
 ?>
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
@@ -18,7 +21,7 @@
                     <ul id="sidebarnav">
                         <?php foreach ($rootMenus as $rootMenu): ?>
                             <?php
-                                $parentMenus = $this->db->query("SELECT * FROM tbl_menus WHERE id IN ($userRole->permission) AND parent_menu = $rootMenu->id AND status = 1 ORDER BY order_by ASC")->result();
+                                $parentMenus = $this->db->query("SELECT * FROM tbl_menus WHERE $permission parent_menu = $rootMenu->id AND status = 1 ORDER BY order_by ASC")->result();
                             ?>
                             <?php if (count($parentMenus) > 0): ?>
                                 <li>
@@ -29,7 +32,7 @@
                                     <ul aria-expanded="false" class="collapse">
                                         <?php foreach ($parentMenus as $parentMenu): ?>
                                             <?php
-                                                $childMenus = $this->db->query("SELECT * FROM tbl_menus WHERE id IN ($userRole->permission) AND parent_menu = $parentMenu->id AND status = 1 ORDER BY order_by ASC")->result();
+                                                $childMenus = $this->db->query("SELECT * FROM tbl_menus WHERE $permission parent_menu = $parentMenu->id AND status = 1 ORDER BY order_by ASC")->result();
                                             ?>
                                             <?php if (count($childMenus) > 0): ?>
                                                 <li>
