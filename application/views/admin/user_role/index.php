@@ -64,29 +64,21 @@
 					                    <tr>
 					                        <th width="20px">SL</th>
 					                        <th>Name</th>
-					                        <th>Parent</th>
-					                        <th>Link</th>
-                                            <th>Icon</th>
-					                        <th width="20px">Order</th>
 					                        <th width="20px">Status</th>
 					                        <th width="50px">Action</th>
 					                    </tr>
 					                </thead>
 					                <tbody id="">
 					                	<?php $sl = 1; ?>
-					                	<?php foreach ($menus as $menu): ?>
-					                		<tr class="row_<?= $menu->id ?>">
+					                	<?php foreach ($allUserRole as $userRole): ?>
+					                		<tr class="row_<?= $userRole->id ?>">
 					                			<td><?= $sl++ ?></td>
-					                			<td><?= $menu->menu_name ?></td>
-					                			<td><?= $menu->parentName ?></td>
-					                            <td><?= $menu->menu_link ?></td>
-                                                <td><?= $menu->menu_icon ?></td>
-					                            <td><?= $menu->order_by ?></td>
+					                			<td><?= $userRole->name ?></td>
 					                			<td>
-					                				<?= $this->LinkModel->status($menu->id,$menu->status); ?>
+					                				<?= $this->LinkModel->status($userRole->id,$userRole->status); ?>
 					                			</td>
 					                			<td>
-					                				<?= $this->LinkModel->action($menu->id); ?>
+					                				<?= $this->LinkModel->action($userRole->id); ?>
 					                			</td>
 					                		</tr>					                		
 					                	<?php endforeach ?>

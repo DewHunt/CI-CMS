@@ -26,7 +26,7 @@
                             <?php if (count($parentMenus) > 0): ?>
                                 <li>
                                     <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                                        <i class="ti-layout-grid2"></i>
+                                        <i class="<?= $rootMenu->menu_icon == '' ? 'ti-layout-grid2' : $rootMenu->menu_icon ?>"></i>
                                         <span class="hide-menu"><?= $rootMenu->menu_name ?></span>
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
@@ -37,14 +37,15 @@
                                             <?php if (count($childMenus) > 0): ?>
                                                 <li>
                                                     <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                                        <i class="ti-settings"></i>
+                                                        <i class="<?= $parentMenu->menu_icon == '' ? 'ti-settings' : $parentMenu->menu_icon ?>"></i>
                                                         <span class="hide-menu"><?= $parentMenu->menu_name ?></span>
                                                     </a>
                                                     <ul aria-expanded="false" class="collapse">
                                                         <?php foreach ($childMenus as $childMenu): ?>
                                                             <li>
                                                                 <a href="<?= $childMenu->menu_link ?>">
-                                                                    <i class="ti-files"></i><span class="hide-menu"> <?= $childMenu->menu_name ?></span>
+                                                                    <i class="<?= $childMenu->menu_icon == '' ? 'ti-files' : $childMenu->menu_icon ?>"></i>
+                                                                    <span class="hide-menu"> <?= $childMenu->menu_name ?></span>
                                                                 </a>
                                                             </li>
                                                         <?php endforeach ?>
@@ -53,7 +54,8 @@
                                             <?php else: ?>
                                                 <li>
                                                     <a href="<?= base_url($parentMenu->menu_link) ?>">
-                                                        <i class="ti-settings"></i><span class="hide-menu"> <?= $parentMenu->menu_name ?></span>
+                                                        <i class="<?= $parentMenu->menu_icon == '' ? 'ti-settings' : $parentMenu->menu_icon ?>"></i>
+                                                        <span class="hide-menu"> <?= $parentMenu->menu_name ?></span>
                                                     </a>
                                                 </li>                                                
                                             <?php endif ?>                                            
@@ -63,7 +65,8 @@
                             <?php else: ?>
                                 <li>
                                     <a class="waves-effect waves-dark" href="<?= base_url($rootMenu->menu_link) ?>" aria-expanded="false">
-                                        <i class="ti-layout-grid2"></i><span class="hide-menu"><?= $rootMenu->menu_name ?></span>
+                                        <i class="<?= $rootMenu->menu_icon == '' ? 'ti-layout-grid2' : $rootMenu->menu_icon ?>"></i>
+                                        <span class="hide-menu"><?= $rootMenu->menu_name ?></span>
                                     </a>
                                 </li>
                             <?php endif ?>

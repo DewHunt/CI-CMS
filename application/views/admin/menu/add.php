@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <?php include APPPATH.'views/admin/include/header-assets.php'; ?>
+    </head>
+
+    <body class="skin-default fixed-layout">
+        <!-- Preloader -->
+        <?php //include APPPATH.'views/admin/include/preloader.php'; ?>
+
+        <!-- Main wrapper - style you can find in pages.scss -->
+        <div id="main-wrapper">
+            <!-- Topbar header - style you can find in pages.scss -->
+            <?php include APPPATH.'views/admin/include/top-navbar.php'; ?>
+
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <?php include APPPATH.'views/admin/include/menu.php'; ?>
+
+            <!-- Page wrapper  -->
+            <div class="page-wrapper">
+                <!-- Container fluid  -->
+                <div class="container-fluid">
+                    <div style="padding-bottom: 10px;"></div>
+
+                    <?php if (!empty($this->session->flashdata('message'))): ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Success!</strong> <?= $this->session->flashdata('message') ?>
+                        </div>                    	
+                    <?php endif ?>
+
+                    <?php if (!empty($this->session->flashdata('error'))): ?>
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Oops!</strong> <?= $this->session->flashdata('error') ?>
+                        </div>                    	
+                    <?php endif ?>
+
+                    <!-- Start Page Content -->
+    			    <form class="form-horizontal" action="<?= base_url($formLink) ?>" id="formAddEdit" method="POST" enctype="multipart/form-data" name="form">
+    				    <div class="card">
+    				        <div class="custom-card-header">
+    				            <div class="row">
+    				                <div class="col-md-6"><h4 class="custom-card-title"><?= $title ?></h4></div>
+    				                <div class="col-md-6 text-right">
+    				                	<a class="btn btn-outline-info btn-lg" href="<?= base_url($goBackLink) ?>">
+    				                		<i class="fa fa-arrow-circle-left"></i> Go Back
+    				                	</a>
+    				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="Save"><i class="fa fa-save"></i> <?= $buttonName ?></button>
+    				                </div>
+    				            </div>
+    				        </div>
+
+						    <div class="card-body">
+						        <div class="row">
+						            <div class="col-md-6">
+						                <label for="parent">Parent</label>
+						                <div class="form-group">
+						                    <select class="form-control select2" id="parentMenuId" name="parentMenu">
+						                        <option value="">Select Parent</option>
+						                        <?php foreach ($menus as $menu): ?>
+						                            <option value="<?= $menu->id ?>"><?= $menu->menu_name ?></option>
+						                        <?php endforeach ?>
+						                    </select>
+						                </div>
+						            </div>
+
+						            <div class="col-md-6">
+						                <label for="menu-name">Menu Name</label>
+						                <div class="form-group">
+						                    <input type="text" class="form-control" placeholder="Menu name" name="menuName" value="" required>
+						                </div>
+						            </div>
+						        </div>
+
+						        <div class="row">
+						            <div class="col-md-6">
+						                <label for="menu-link">Menu Link</label>
+						                <div class="form-group">
+						                    <input type="text" class="form-control" placeholder="Menu link" name="menuLink" value="">
+						                </div>
+						            </div>
+
+						            <div class="col-md-3">
+						                <label for="menu-icon">Menu Icon</label>
+						                <div class="form-group">
+						                    <input type="text" class="form-control" placeholder="fa fa-icon" name="menuIcon" value="">
+						                </div>
+						            </div>
+
+						            <div class="col-md-3">
+						                <label for="order-by">Order By</label>
+						                <div class="form-group">
+						                    <input type="number" class="form-control" placeholder="Order By" id="orderBy" name="orderBy" value="<?= $orderBy ?>" required>
+						                </div>
+						            </div>
+						        </div>              
+						    </div>
+
+    				        <div class="custom-card-footer">
+    				            <div class="row">
+    				                <div class="col-md-12 text-right">
+    				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="<?= $buttonName ?>"><i class="fa fa-save"></i> <?= $buttonName ?></button>
+    				                </div>
+    				            </div>	        	
+    				        </div>
+    				    </div>
+    				</form>
+                    <!-- End PAge Content -->
+
+                    <!-- Right sidebar -->
+                    <?php include APPPATH.'views/admin/include/right-sidebar.php'; ?>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <?php include APPPATH.'views/admin/include/footer.php'; ?>
+        </div>
+        <?php include APPPATH.'views/admin/include/footer-assets.php'; ?>
+
+	    <script type="text/javascript">
+	        $(document).on('change','#parentMenuId',function(){
+	            var parentMenuId = $('#parentMenuId').val();
+
+	            $.ajax({
+	                type: "POST",
+	                url: "<?= base_url('menu/maxorder') ?>",
+	                data:{parentMenuId:parentMenuId},
+	                success: function(response) {
+	                    var orderBy = response.orderBy;
+
+	                    $('#orderBy').val(orderBy);
+	                },
+	            });
+	        });
+	    </script>
+    </body>
+</html>

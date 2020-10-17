@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2020 at 01:49 AM
+-- Generation Time: Oct 17, 2020 at 02:46 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -111,27 +111,27 @@ CREATE TABLE `tbl_menus` (
 --
 
 INSERT INTO `tbl_menus` (`id`, `parent_menu`, `menu_name`, `menu_link`, `menu_icon`, `order_by`, `status`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Dashboard', 'home', 'fa fa-bars', 1, '1', '2020-07-08 23:22:23', '2020-09-11 02:38:34'),
-(2, '13', 'Menu', 'menu', 'fa fa-caret', 1, '1', NULL, NULL),
-(3, '13', 'Users Role', 'userRole.index', 'fa fa-bars', 4, '1', '2020-03-03 13:48:57', '2020-03-15 06:02:37'),
-(4, '13', 'Menu Action Type', 'menuActionType.index', 'fa fa-bars', 2, '1', NULL, NULL),
-(5, '13', 'User', 'user.index', 'fa fa-bars', 3, '1', '2020-03-14 02:06:15', '2020-03-15 06:02:33'),
-(6, NULL, 'Front-End Management', NULL, 'fa fa-bars', 3, '1', '2020-04-16 09:54:08', '2020-07-08 23:25:14'),
-(7, '6', 'Website Information', 'websiteInformation.index', 'fa fa-caret', 1, '1', '2020-04-16 10:43:15', '2020-04-16 10:43:15'),
-(8, '6', 'Menus', 'frontEndMenu.index', NULL, 2, '1', '2020-04-18 08:17:03', '2020-04-18 08:17:03'),
-(10, '6', 'Social Links', 'socialLink.index', 'fa fa-caret', 3, '1', '2020-04-18 10:14:20', '2020-04-18 10:14:20'),
-(11, '6', 'Sliders', 'sliders.index', 'fa fa-bars', 4, '1', '2020-04-19 08:19:58', '2020-04-19 08:19:58'),
-(12, '6', 'Pages', 'page.index', 'fa fa-caret', 5, '1', '2020-05-10 05:09:10', '2020-05-10 05:09:10'),
-(13, NULL, 'User Management', NULL, 'fa fa-bars', 2, '1', NULL, '2020-07-08 23:25:07'),
-(15, '13', 'Admin Information', 'adminPanelInformation.index', 'fa fa-bars', 5, '1', '2020-07-09 00:45:20', '2020-07-09 00:45:20'),
-(16, NULL, 'No Sub Menu', 'NoSubMenu', NULL, 4, '1', NULL, NULL),
-(17, NULL, 'Multi Level Menu', NULL, NULL, 5, '1', NULL, NULL),
-(18, '17', 'Parent Menu 1', 'ParentMenuOne', NULL, 1, '1', NULL, NULL),
-(19, '18', 'Child Menu 1', 'ChildMenuOne', NULL, 1, '1', NULL, NULL),
-(20, '18', 'Child Menu 2', 'ChildMenuTwo', NULL, 2, '1', NULL, NULL),
-(21, '17', 'Parent Menu 2', 'ParentMenuTwo', NULL, 2, '1', NULL, NULL),
-(22, '21', 'Child Menu 3', 'ChildMenuThree', NULL, 1, '1', NULL, NULL),
-(23, '17', 'parent Menu 3', 'ParentMenuThree', NULL, 3, '1', NULL, NULL);
+(1, NULL, 'Dashboard', 'home', 'ti-layout-grid2', 1, '1', '2020-07-08 23:22:23', '2020-09-11 02:38:34'),
+(2, '13', 'Menu', 'menu', 'ti-settings', 1, '1', NULL, NULL),
+(3, '13', 'Users Role', 'userrole', 'ti-settings', 4, '1', '2020-03-03 13:48:57', '2020-03-15 06:02:37'),
+(4, '13', 'Menu Action Type', 'menuActionType.index', 'ti-settings', 2, '1', NULL, NULL),
+(5, '13', 'User', 'user.index', 'ti-settings', 3, '1', '2020-03-14 02:06:15', '2020-03-15 06:02:33'),
+(6, NULL, 'Front-End Management', '', 'ti-layout-grid2', 3, '1', '2020-04-16 09:54:08', '2020-07-08 23:25:14'),
+(7, '6', 'Website Information', 'websiteInformation.index', 'ti-settings', 1, '1', '2020-04-16 10:43:15', '2020-04-16 10:43:15'),
+(8, '6', 'Menus', 'frontEndMenu.index', 'ti-settings', 2, '1', '2020-04-18 08:17:03', '2020-04-18 08:17:03'),
+(10, '6', 'Social Links', 'socialLink.index', 'ti-settings', 3, '1', '2020-04-18 10:14:20', '2020-04-18 10:14:20'),
+(11, '6', 'Sliders', 'sliders.index', 'ti-settings', 4, '1', '2020-04-19 08:19:58', '2020-04-19 08:19:58'),
+(12, '6', 'Pages', 'page.index', 'ti-settings', 5, '1', '2020-05-10 05:09:10', '2020-05-10 05:09:10'),
+(13, NULL, 'User Management', '', 'ti-layout-grid2', 2, '1', NULL, '2020-07-08 23:25:07'),
+(15, '13', 'Admin Information', 'adminPanelInformation.index', '', 5, '1', '2020-07-09 00:45:20', '2020-07-09 00:45:20'),
+(16, NULL, 'No Sub Menu', 'NoSubMenu', 'ti-layout-grid2', 4, '1', NULL, NULL),
+(17, NULL, 'Multi Level Menu', '', 'ti-layout-grid2', 5, '1', NULL, NULL),
+(18, '17', 'Parent Menu 1', 'ParentMenuOne', 'ti-settings', 1, '1', NULL, NULL),
+(19, '18', 'Child Menu 1', 'ChildMenuOne', 'ti-files', 1, '1', NULL, NULL),
+(20, '18', 'Child Menu 2', 'ChildMenuTwo', 'ti-files', 2, '1', NULL, NULL),
+(21, '17', 'Parent Menu 2', 'ParentMenuTwo', 'ti-settings', 2, '1', NULL, NULL),
+(22, '21', 'Child Menu 3', 'ChildMenuThree', 'ti-files', 1, '1', NULL, NULL),
+(23, '17', 'parent Menu 3', 'ParentMenuThree', 'ti-settings', 3, '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -156,20 +156,20 @@ CREATE TABLE `tbl_menu_actions` (
 --
 
 INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_name`, `action_link`, `order_by`, `status`, `created_at`, `updated_at`) VALUES
-(2, 2, 1, 'Add', 'menu/add', 1, 1, NULL, NULL),
-(3, 2, 2, 'Edit', 'menu/edit', 2, 1, NULL, NULL),
-(4, 2, 3, 'Status', 'menu/status', 3, 1, NULL, NULL),
+(2, 2, 1, 'Add', 'menu/add/', 1, 1, NULL, NULL),
+(3, 2, 2, 'Edit', 'menu/edit/', 2, 1, NULL, NULL),
+(4, 2, 3, 'Status', 'menu/status/', 3, 1, NULL, NULL),
 (5, 2, 8, 'View Menu Action', 'menuAction.index', 4, 1, NULL, NULL),
-(6, 2, 4, 'Delete', 'menu/delete', 5, 1, NULL, NULL),
+(6, 2, 4, 'Delete', 'menu/delete/', 5, 1, NULL, NULL),
 (7, 4, 1, 'Add', 'menuActionType.add', 1, 1, NULL, NULL),
 (8, 4, 2, 'Edit', 'menuActionType.edit', 2, 1, NULL, NULL),
 (9, 4, 3, 'Status', 'menuActionType.status', 3, 1, NULL, NULL),
 (10, 4, 4, 'Delete', 'menuActionType.delete', 4, 1, NULL, NULL),
-(11, 3, 1, 'Add', 'userRole.add', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
-(12, 3, 2, 'Edit', 'userRole.edit', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
-(13, 3, 5, 'Permission', 'userRole.permission', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
-(14, 3, 3, 'Status', 'userRole.status', 4, 1, '2020-03-07 00:18:08', '2020-03-07 00:18:08'),
-(15, 3, 4, 'Delete', 'userRole.delete', 5, 1, '2020-03-07 00:18:22', '2020-03-07 00:18:22'),
+(11, 3, 1, 'Add', 'userrole/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
+(12, 3, 2, 'Edit', 'userrole/edit/', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
+(13, 3, 5, 'Permission', 'userrole/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
+(14, 3, 3, 'Status', 'userrole/status/', 4, 1, '2020-03-07 00:18:08', '2020-03-07 00:18:08'),
+(15, 3, 4, 'Delete', 'userrole/delete/', 5, 1, '2020-03-07 00:18:22', '2020-03-07 00:18:22'),
 (21, 5, 1, 'Add', 'user.add', 1, 1, '2020-03-14 02:06:39', '2020-03-14 02:06:39'),
 (22, 5, 2, 'Edit', 'user.edit', 2, 1, '2020-03-14 02:06:53', '2020-03-14 02:06:53'),
 (23, 5, 8, 'View Profile', 'user.profile', 3, 1, '2020-03-14 02:07:32', '2020-03-14 02:07:32'),
@@ -425,7 +425,7 @@ CREATE TABLE `tbl_user_roles` (
 
 INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
 (2, 'Super User', NULL, 1, 1, '1,13,2,3,4,5,15,6,7,8,10,11,12', '2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,25,26,52,53,28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
-(3, 'Admin', 2, 1, 1, '1,13,2,3,4,5,17,18,19', '2,3,4', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
+(3, 'Admin', 2, 1, 1, '1,13,2,3,4,5,17,18,19', '2,3,4,5', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
 (4, 'User', NULL, 1, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23');
 
 -- --------------------------------------------------------

@@ -2,13 +2,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Menu extends CI_Controller {
+class UserRole extends CI_Controller {
 
     public function __construct()
     {
         parent:: __construct();
         $this->load->library('form_validation');
-        // $this->load->helper('settings_helper');
+        $this->load->model('UserRoleModel');
         $this->load->model('MenuModel');
         
         if (empty($this->session->userdata('sessionUserInfo'))) {
@@ -18,15 +18,15 @@ class Menu extends CI_Controller {
 
     public function Index()
     {
-        $menus = $this->MenuModel->GetAllMenuList();
+        $allUserRole = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
 
         $this->data['title'] = "Menu";
-        $this->data['addButtonLink'] = "menu/add/";
-        $this->data['deleteLink'] = "menu/delete/";
-        $this->data['statusLink'] = "menu/status/";
-        $this->data['menus'] = $menus;
+        $this->data['addButtonLink'] = "userrole/add/";
+        $this->data['deleteLink'] = "userrole/delete";
+        $this->data['statusLink'] = "userrole/status/";
+        $this->data['allUserRole'] = $allUserRole;
 
-        $this->load->view('admin/menu/index', $this->data);
+        $this->load->view('admin/user_role/index', $this->data);
     }
 
     public function Add()
@@ -42,9 +42,9 @@ class Menu extends CI_Controller {
         }
 
         $this->data['title'] = "Add New Menu";
-        $this->data['formLink'] = "menu/save/";
+        $this->data['formLink'] = "menu/save";
         $this->data['buttonName'] = "Save";
-        $this->data['goBackLink'] = "menu/";
+        $this->data['goBackLink'] = "menu";
         $this->data['menus'] = $menus;
         $this->data['orderBy'] = $orderBy;
 
@@ -90,9 +90,9 @@ class Menu extends CI_Controller {
         $menuInfo = $this->MenuModel->GetMenuInfoById($menuId);
 
         $this->data['title'] = "Edit Menu";
-        $this->data['formLink'] = "menu/update/";
+        $this->data['formLink'] = "menu/update";
         $this->data['buttonName'] = "Update";
-        $this->data['goBackLink'] = "menu/";
+        $this->data['goBackLink'] = "menu";
         $this->data['menus'] = $menus;
         $this->data['menuInfo'] = $menuInfo;
 
@@ -139,38 +139,32 @@ class Menu extends CI_Controller {
     	}
     }
 
+    public function Permission($userRoleId)
+    {
+    	$userMenus = $this->MenuModel->GetAllMenuInfo();
+    	$userRoles = $this->HelperModel->GetDataById('tbl_user_roles',$userRoleId);
+
+    	// echo "<pre>"; print_r($userRoles); exit();
+
+        $this->data['title'] = "User Permission";
+        $this->data['formLink'] = "userrole/updatepermission/";
+        $this->data['buttonName'] = "Update";
+        $this->data['goBackLink'] = "userrole/";
+        $this->data['userMenus'] = $userMenus;
+        $this->data['userRoles'] = $userRoles;
+
+        $this->load->view('admin/user_role/permission', $this->data);
+    }
+
     public function Delete()
     {
     	$id = $this->input->post('id');
-    	$this->db->delete('tbl_menus', array('id' => $id));
-    	$this->db->delete('tbl_menu_actions', array('parent_menu_id' => $id));
+    	$this->db->delete('tbl_user_roles', array('id' => $id));
     }
 
     public function Status()
     {
     	$id = $this->input->post('id');
-    	$this->HelperModel->UpdateStatus('tbl_menus',$id);
-    }
-
-    public function MaxOrder()
-    {
-    	$parentMenuId = $this->input->post('parentMenuId');
-
-    	if ($parentMenuId != "") {
-            $menuMaxOrder = $this->MenuModel->GetMaxOrder($parentMenuId);
-    	} else {
-        	$menuMaxOrder = $this->MenuModel->GetParentMenuMaxOrder();
-    	}
-
-        if ($menuMaxOrder) {
-            $orderBy = $menuMaxOrder->maxOrder + 1;
-        }
-        else {
-            $orderBy = 1;
-        }
-
-        $this->output->set_content_type('application/json')->set_output(json_encode(array(
-            'orderBy' => $orderBy,
-        )));   
+    	$this->HelperModel->UpdateStatus('tbl_user_roles',$id);
     }
 }
