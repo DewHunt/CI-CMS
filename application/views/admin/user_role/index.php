@@ -14,7 +14,7 @@
 
     <body class="skin-default fixed-layout">
         <!-- Preloader -->
-        <?php include APPPATH.'views/admin/include/preloader.php'; ?>
+        <?php //include APPPATH.'views/admin/include/preloader.php'; ?>
 
         <!-- Main wrapper - style you can find in pages.scss -->
         <div id="main-wrapper">
@@ -63,7 +63,8 @@
 					                <thead>
 					                    <tr>
 					                        <th width="20px">SL</th>
-					                        <th>Name</th>
+					                        <th width="100px">Name</th>
+                                            <th>Menu Name</th>
 					                        <th width="20px">Status</th>
 					                        <th width="50px">Action</th>
 					                    </tr>
@@ -71,9 +72,29 @@
 					                <tbody id="">
 					                	<?php $sl = 1; ?>
 					                	<?php foreach ($allUserRole as $userRole): ?>
+                                            <?php
+                                                if ($userRole->permission == "")
+                                                {
+                                                    $menus = [];
+                                                }
+                                                else
+                                                {
+                                                    // $menuIds = explode(',',$userRole->permission);
+                                                    $menus = $this->HelperModel->GetDataByMultipleId('tbl_menus',$userRole->permission);
+                                                }
+                                            
+                                                $menuArray = [];
+                                                foreach ($menus as $menu)
+                                                {
+                                                    array_push($menuArray, $menu->menu_name);
+                                                }
+
+                                                $menuName = implode(', ', $menuArray);
+                                            ?>
 					                		<tr class="row_<?= $userRole->id ?>">
 					                			<td><?= $sl++ ?></td>
 					                			<td><?= $userRole->name ?></td>
+                                                <td><?= $menuName ?></td>
 					                			<td>
 					                				<?= $this->LinkModel->status($userRole->id,$userRole->status); ?>
 					                			</td>

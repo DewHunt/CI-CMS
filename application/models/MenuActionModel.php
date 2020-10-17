@@ -12,10 +12,23 @@ clASs MenuActionModel extends CI_Model {
         $this->load->databASe();
     }
 
-    public function GetUserMenuActionCount($id)
+    public function GetMenuActionListByMenuId($menuId)
     {
-    	$count = $this->db->query("SELECT COUNT(*) FROM tbl_menu_actions WHERE parent_menu_id = $id AND status = 1")->get();
+        $result = $this->db->query("
+            SELECT `tbl_menu_actions`.*, `tbl_menus`.`menu_name` AS `parentMenuName` 
+            FROM `tbl_menu_actions` 
+            LEFT JOIN `tbl_menus` ON `tbl_menus`.`id` = `tbl_menu_actions`.`parent_menu_id` 
+            WHERE `tbl_menu_actions`.`parent_menu_id` = $menuId
+            ORDER BY `tbl_menu_actions`.`order_by` asc
+        ")->result();
 
-    	return $count;
+        return $result;
+    }
+
+    public function GetMenuActionMaxOrder($menuId)
+    {
+        $maxOrder = $this->db->query("SELECT MAX(order_by) AS maxOrder FROM tbl_menu_actions WHERE parent_menu_id = $menuId")->row();
+
+        return $maxOrder;
     }
 }

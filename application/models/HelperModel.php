@@ -16,7 +16,7 @@ class HelperModel extends CI_Model {
     }
 
     public function GetDataById($tableName,$id) {
-    	$results = $this->db->query("SELECT * FROM $tableName WHERE id = $id")->result();
+    	$results = $this->db->query("SELECT * FROM $tableName WHERE id = $id")->row();
 
     	return $results;
     }
@@ -24,6 +24,8 @@ class HelperModel extends CI_Model {
     public function UpdateStatus($tableName,$id)
     {
     	$findResult = $this->db->query("SELECT * FROM $tableName WHERE id = $id")->row();
+
+    	// echo "<pre>"; print_r($findResult); exit();
 
     	if ($findResult->status == 0) {
     		$status = 1;
@@ -72,6 +74,13 @@ class HelperModel extends CI_Model {
     public function GetUserMenuAction($id)
     {
     	$result = $this->db->query("SELECT * FROM tbl_menu_actions WHERE parent_menu_id = $id AND status = 1 ORDER BY order_by ASC")->result();
+
+    	return $result;
+    }
+
+    public function GetDataByMultipleId($tableName,$ids)
+    {
+    	$result = $this->db->query("SELECT * FROM $tableName WHERE id IN ($ids)")->result();
 
     	return $result;
     }

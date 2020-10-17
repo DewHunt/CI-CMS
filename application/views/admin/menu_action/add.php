@@ -54,12 +54,53 @@
     				                	<a class="btn btn-outline-info btn-lg" href="<?= base_url($goBackLink) ?>">
     				                		<i class="fa fa-arrow-circle-left"></i> Go Back
     				                	</a>
-    				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="<?= $buttonName ?>"><i class="fa fa-save"></i> <?= $buttonName ?></button>
+    				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="Save"><i class="fa fa-save"></i> <?= $buttonName ?></button>
     				                </div>
     				            </div>
     				        </div>
 
-						    <div class="card-body"></div>
+						    <div class="card-body">
+				                <div class="row">
+				                    <div class="col-md-12">
+				                        <input class="form-control" type="hidden" name="parentMenuId" value="<?= $menuId ?>">
+				                    </div>
+				                </div>
+
+				                <div class="row">
+				                    <div class="col-md-6">
+				                        <label for="Menu-type">Action Type</label>
+				                        <div class="form-group {{ $errors->has('actionTypeId') ? ' has-danger' : '' }}">
+				                            <select class="form-control select2" name="actionTypeId">
+				                                <option value=" ">Select Action Type</option>
+				                                <?php foreach ($menuActionTypes as $menuActionType): ?>
+				                                    <option value="<?= $menuActionType->action_id ?>"><?= $menuActionType->name ?></option>
+				                                <?php endforeach ?>
+				                            </select>
+				                        </div>
+				                    </div>
+				                    <div class="col-md-6">
+				                        <label for="name">Name</label>
+				                        <div class="form-group">
+				                            <input type="text" class="form-control form-control-danger" placeholder="Add" name="actionName" value="" required>
+				                        </div>
+				                    </div>
+				                </div>
+
+				                <div class="row">
+				                    <div class="col-md-6">
+				                        <label for="link">Link</label>
+				                        <div class="form-group">
+				                            <input type="text" class="form-control form-control-danger" placeholder="menu/add" name="actionLink" value="" required>
+				                        </div>
+				                    </div>
+				                    <div class="col-md-6">
+				                        <label for="order-by">Order By</label>
+				                        <div class="form-group">
+				                            <input type="number" class="form-control form-control-danger" placeholder="order by" name="orderBy" value="<?= $orderBy ?>" required>
+				                        </div>
+				                    </div>
+				                </div>
+						    </div>
 
     				        <div class="custom-card-footer">
     				            <div class="row">
@@ -81,7 +122,5 @@
             <?php include APPPATH.'views/admin/include/footer.php'; ?>
         </div>
         <?php include APPPATH.'views/admin/include/footer-assets.php'; ?>
-
-	    <script type="text/javascript"></script>
     </body>
 </html>

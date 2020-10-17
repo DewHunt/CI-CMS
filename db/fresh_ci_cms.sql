@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2020 at 02:46 AM
+-- Generation Time: Oct 18, 2020 at 01:44 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -159,7 +159,7 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (2, 2, 1, 'Add', 'menu/add/', 1, 1, NULL, NULL),
 (3, 2, 2, 'Edit', 'menu/edit/', 2, 1, NULL, NULL),
 (4, 2, 3, 'Status', 'menu/status/', 3, 1, NULL, NULL),
-(5, 2, 8, 'View Menu Action', 'menuAction.index', 4, 1, NULL, NULL),
+(5, 2, 8, 'View Menu Action', 'menuaction/index/', 4, 1, NULL, NULL),
 (6, 2, 4, 'Delete', 'menu/delete/', 5, 1, NULL, NULL),
 (7, 4, 1, 'Add', 'menuActionType.add', 1, 1, NULL, NULL),
 (8, 4, 2, 'Edit', 'menuActionType.edit', 2, 1, NULL, NULL),
@@ -196,7 +196,11 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (50, 12, 8, 'View Posts', 'post.index', 4, 1, '2020-05-10 05:11:48', '2020-05-10 05:11:48'),
 (51, 12, 4, 'Delete', 'page.delete', 5, 1, '2020-05-10 05:12:01', '2020-05-10 05:12:01'),
 (52, 15, 1, 'Add', 'adminPanelInformation.add', 1, 1, '2020-07-09 00:45:42', '2020-07-09 00:45:42'),
-(53, 15, 2, 'Edit', 'adminPanelInformation.edit', 2, 1, '2020-07-09 00:45:50', '2020-07-09 00:45:50');
+(53, 15, 2, 'Edit', 'adminPanelInformation.edit', 2, 1, '2020-07-09 00:45:50', '2020-07-09 00:45:50'),
+(54, 16, 1, 'Add', 'nosubmenu/add/', 1, 1, NULL, NULL),
+(55, 16, 2, 'Edit', 'nosubmenu/edit/', 2, 1, NULL, NULL),
+(56, 19, 1, 'Add', 'childmenu/add', 1, 1, NULL, NULL),
+(57, 19, 2, 'Edit', 'childmenu/edit/', 2, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -412,6 +416,7 @@ CREATE TABLE `tbl_user_roles` (
   `name` text COLLATE utf8mb4_unicode_ci,
   `parent_role` int(11) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
+  `order_by` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT '1',
   `permission` text COLLATE utf8mb4_unicode_ci,
   `action_permission` text COLLATE utf8mb4_unicode_ci,
@@ -423,10 +428,11 @@ CREATE TABLE `tbl_user_roles` (
 -- Dumping data for table `tbl_user_roles`
 --
 
-INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
-(2, 'Super User', NULL, 1, 1, '1,13,2,3,4,5,15,6,7,8,10,11,12', '2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,25,26,52,53,28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
-(3, 'Admin', 2, 1, 1, '1,13,2,3,4,5,17,18,19', '2,3,4,5', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
-(4, 'User', NULL, 1, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23');
+INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `order_by`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
+(2, 'Super User', NULL, 1, NULL, 1, '1,6,7,8,10,11,12,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,25,26,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
+(3, 'Admin', 2, 1, NULL, 1, '1,6,7,8,10,11,12', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
+(4, 'User', NULL, 1, NULL, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23'),
+(5, 'Manager', NULL, NULL, 4, 1, '1,6,7', '28,29', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -574,7 +580,7 @@ ALTER TABLE `tbl_menus`
 -- AUTO_INCREMENT for table `tbl_menu_actions`
 --
 ALTER TABLE `tbl_menu_actions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu_action_type`
@@ -616,7 +622,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_user_roles`
 --
 ALTER TABLE `tbl_user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_website_information`

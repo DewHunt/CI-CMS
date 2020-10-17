@@ -68,7 +68,7 @@
     				        </div>
 
 						    <div class="card-body">
-						    	<?php $userRoles = $userRoles[0]; ?>
+						    	<?php $userRoles = $userRoles; ?>
 						        <input type="hidden" name="userroleId" value="<?= $userRoles->id ?>">
 
 						        <div class="row">
@@ -100,7 +100,7 @@
 
 						                    <div class="row parentMenuBlock">
 						                        <div class="col-md-12">
-						                        	<input class="parentMenu_<?= $rootMenu->parent_menu ?> menu" type="checkbox" name="usermenu[]" value="<?= $rootMenu->id ?>" {{ $checked }}  data-id="<?= $rootMenu->id ?>" <?php if ($rootMenu->id == 1): ?>onclick="return false" checked<?php endif ?>>
+						                        	<input class="parentMenu_<?= $rootMenu->parent_menu ?> menu" type="checkbox" name="usermenu[]" value="<?= $rootMenu->id ?>" <?= $checked ?>  data-id="<?= $rootMenu->id ?>" <?php if ($rootMenu->id == 1): ?>onclick="return false" checked<?php endif ?>>
 						                            <span><?= $rootMenu->menu_name ?></span>
 						                          
 						                            <div class="row" style="padding-left: 30px;">
@@ -244,5 +244,51 @@
             <?php include APPPATH.'views/admin/include/footer.php'; ?>
         </div>
         <?php include APPPATH.'views/admin/include/footer-assets.php'; ?>
+
+	    <script type="text/javascript">
+	        $(document).ready(function(){
+	            $('.select_all').click(function(event){
+	                if(this.checked)
+	                {
+	                    // Iterate each checkbox
+	                    $(':checkbox').each(function(){
+	                        this.checked = true;
+	                    });
+	                }
+	                else
+	                {
+	                    $(':checkbox').each(function(){
+	                        this.checked = false;
+	                    });
+	                }
+	            });
+
+	            $('.menu').click(function(event){
+	                var menuId = $(this).data('id');
+	                if(this.checked)
+	                {
+	                    $('.parentMenu_'+menuId).each(function()
+	                    {
+	                        this.checked = true;
+	                    });
+
+	                    $('.childMenu_'+menuId).each(function(){
+	                        this.checked = true;
+	                    });
+	                }
+	                else
+	                {
+	                    $('.parentMenu_'+menuId).each(function()
+	                    {
+	                        this.checked = false;
+	                    });
+
+	                    $('.childMenu_'+menuId).each(function(){
+	                        this.checked = false;
+	                    });
+	                }
+	            });
+	        });
+	    </script>
     </body>
 </html>
