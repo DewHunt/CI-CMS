@@ -9,7 +9,136 @@ class LinkModel extends CI_Model {
         $this->load->database();
     }
 
-    public function action($id = null)
+    public function AddLink()
+    {
+        $roleId = $this->session->userdata('sessionUserInfo')['role'];
+
+        if ($roleId != 2) {
+            $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
+
+            if ($userRole) {
+                $rolePermission = explode(',', $userRole->action_permission);
+            } else {
+                $rolePermission = [];
+            }            
+        }
+
+        $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+        $menu = $this->db->query("SELECT * FROM tbl_menus WHERE menu_link = '$routeName'")->row();
+        $menuAction = $this->db->query("SELECT * FROM tbl_menu_actions WHERE parent_menu_id = $menu->id AND status = 1")->result();
+        $dataLink = '';
+
+        if (!empty($menuAction)) {
+            foreach ($menuAction as $action) {
+                $menuType = "";
+
+                if ($roleId == 2) {
+                    $menuType = $action->menu_type;
+                } else {
+                    if (in_array($action->id,$rolePermission)) {
+                        $menuType = $action->menu_type;
+                    }                        
+                }
+
+                if ($menuType != "") {
+                    // Edit Option
+                    if($menuType == 1){
+                        $dataLink = '<a style="font-size: 16px;" class="btn btn-outline-info btn-lg" href="'.base_url($action->action_link).'"><i class="fa fa-plus-circle"></i> '.$action->action_name.'</a>';
+                    }
+                }
+            }
+        }
+        
+        return $dataLink;
+    }
+
+    public function DeleteLink()
+    {
+        $roleId = $this->session->userdata('sessionUserInfo')['role'];
+
+        if ($roleId != 2) {
+            $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
+
+            if ($userRole) {
+                $rolePermission = explode(',', $userRole->action_permission);
+            } else {
+                $rolePermission = [];
+            }            
+        }
+
+        $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+        $menu = $this->db->query("SELECT * FROM tbl_menus WHERE menu_link = '$routeName'")->row();
+        $menuAction = $this->db->query("SELECT * FROM tbl_menu_actions WHERE parent_menu_id = $menu->id AND status = 1")->result();
+        $dataLink = '';
+
+        if (!empty($menuAction)) {
+            foreach ($menuAction as $action) {
+                $menuType = "";
+
+                if ($roleId == 2) {
+                    $menuType = $action->menu_type;
+                } else {
+                    if (in_array($action->id,$rolePermission)) {
+                        $menuType = $action->menu_type;
+                    }                        
+                }
+
+                if ($menuType != "") {
+                    // Edit Option
+                    if($menuType == 4){
+                        $dataLink = base_url($action->action_link);
+                    }
+                }
+            }
+        }
+        
+        return $dataLink;
+    }
+
+    public function StatusLink()
+    {
+        $roleId = $this->session->userdata('sessionUserInfo')['role'];
+
+        if ($roleId != 2) {
+            $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
+
+            if ($userRole) {
+                $rolePermission = explode(',', $userRole->action_permission);
+            } else {
+                $rolePermission = [];
+            }            
+        }
+
+        $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+        $menu = $this->db->query("SELECT * FROM tbl_menus WHERE menu_link = '$routeName'")->row();
+        $menuAction = $this->db->query("SELECT * FROM tbl_menu_actions WHERE parent_menu_id = $menu->id AND status = 1")->result();
+        $dataLink = '';
+
+        if (!empty($menuAction)) {
+            foreach ($menuAction as $action) {
+                $menuType = "";
+
+                if ($roleId == 2) {
+                    $menuType = $action->menu_type;
+                } else {
+                    if (in_array($action->id,$rolePermission)) {
+                        $menuType = $action->menu_type;
+                    }                        
+                }
+
+                if ($menuType != "") {
+                    // Edit Option
+                    if($menuType == 3){
+                        $dataLink = base_url($action->action_link);
+                    }
+                }
+            }
+        }
+        
+        return $dataLink;
+    }
+
+    public function Action($id = null)
     {
         $roleId = $this->session->userdata('sessionUserInfo')['role'];
 
@@ -56,7 +185,7 @@ class LinkModel extends CI_Model {
 
                     // Delete Option
                     if($menuType == 4){
-                        $dataLink .= '<a id="cancel_'.$id.'" href="javascript:void(0)" data-toggle="tooltip" data-original-title="'.$action->action_name.'" data-id="'.$id.'"  data-token="{{ csrf_token() }}"> <i class="fa fa-trash text-danger"></i> </a>';
+                        $dataLink .= '<a id="cancel_'.$id.'" href="javascript:void(0)" data-toggle="tooltip" data-original-title="'.$action->action_name.'" data-id="'.$id.'"> <i class="fa fa-trash text-danger"></i> </a>';
                     }
 
                     if($menuType == 5){
@@ -85,7 +214,7 @@ class LinkModel extends CI_Model {
         return $dataLink;
     }
 
-    public function status($id = null,$status = null)
+    public function Status($id = null,$status = null)
     {
         $roleId = $this->session->userdata('sessionUserInfo')['role'];
 

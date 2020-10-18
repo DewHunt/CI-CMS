@@ -14,7 +14,7 @@
 
     <body class="skin-default fixed-layout">
         <!-- Preloader -->
-        <?php include APPPATH.'views/admin/include/preloader.php'; ?>
+        <?php //include APPPATH.'views/admin/include/preloader.php'; ?>
 
         <!-- Main wrapper - style you can find in pages.scss -->
         <div id="main-wrapper">
@@ -55,43 +55,35 @@
     			            </div>
     			        </div>
 
-					    <div class="card-body">
-					        <div class="table-responsive">
-					            <table id="dataTable" class="table table-bordered table-striped"  name="areaTable">
-					                <thead>
-					                    <tr>
-					                        <th width="20px">SL</th>
-					                        <th>Name</th>
-					                        <th>Parent</th>
-					                        <th>Link</th>
-                                            <th>Icon</th>
-					                        <th width="20px">Order</th>
-					                        <th width="20px">Status</th>
-					                        <th width="50px">Action</th>
-					                    </tr>
-					                </thead>
-					                <tbody id="">
-					                	<?php $sl = 1; ?>
-					                	<?php foreach ($menus as $menu): ?>
-					                		<tr class="row_<?= $menu->id ?>">
-					                			<td><?= $sl++ ?></td>
-					                			<td><?= $menu->menu_name ?></td>
-					                			<td><?= $menu->parentName ?></td>
-					                            <td><?= $menu->menu_link ?></td>
-                                                <td><?= $menu->menu_icon ?></td>
-					                            <td><?= $menu->order_by ?></td>
-					                			<td>
-					                				<?= $this->LinkModel->Status($menu->id,$menu->status); ?>
-					                			</td>
-					                			<td>
-					                				<?= $this->LinkModel->Action($menu->id); ?>
-					                			</td>
-					                		</tr>					                		
-					                	<?php endforeach ?>
-					                </tbody>
-					            </table>
-					        </div>
-					    </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="dataTable" class="table table-bordered table-striped"  name="areaTable">
+                                    <thead>
+                                        <tr>
+                                            <th width="20px">SL</th>
+                                            <th>Name</th>
+                                            <th width="60px">Action Id</th>
+                                            <th width="20px">Status</th>
+                                            <th width="50px">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                    	<?php $sl = 1; ?>
+                                    	<?php foreach ($menuActionTypes as $actionType): ?>
+                                            <tr class="row_<?= $actionType->id ?>">
+                                                <td><?= $sl++ ?></td>
+                                                <td><?= $actionType->name ?></td>
+                                                <td><?= $actionType->action_id ?></td>
+                                                <td>
+                                                	<?= $this->LinkModel->Status($actionType->id,$actionType->status) ?>
+												</td>
+                                                <td><?= $this->LinkModel->Action($actionType->id) ?></td>
+                                            </tr>                                    		
+                                    	<?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <!-- End PAge Content -->
 

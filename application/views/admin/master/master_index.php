@@ -14,7 +14,7 @@
 
     <body class="skin-default fixed-layout">
         <!-- Preloader -->
-        <?php include APPPATH.'views/admin/include/preloader.php'; ?>
+        <?php //include APPPATH.'views/admin/include/preloader.php'; ?>
 
         <!-- Main wrapper - style you can find in pages.scss -->
         <div id="main-wrapper">
@@ -50,48 +50,45 @@
     			            <div class="row">
     			                <div class="col-md-6"><h4 class="custom-card-title"><?= $title ?></h4></div>
     			                <div class="col-md-6 text-right">
+			                        <!-- <a style="font-size: 16px;" class="btn btn-outline-info btn-lg" href="<?= base_url($addButtonLink) ?>">
+			                            <i class="fa fa-plus-circle"></i> Add New
+			                        </a> -->
                                     <?= $this->LinkModel->AddLink(); ?>
     			                </div>
     			            </div>
     			        </div>
 
-					    <div class="card-body">
-					        <div class="table-responsive">
-					            <table id="dataTable" class="table table-bordered table-striped"  name="areaTable">
-					                <thead>
-					                    <tr>
-					                        <th width="20px">SL</th>
-					                        <th>Name</th>
-					                        <th>Parent</th>
-					                        <th>Link</th>
-                                            <th>Icon</th>
-					                        <th width="20px">Order</th>
-					                        <th width="20px">Status</th>
-					                        <th width="50px">Action</th>
-					                    </tr>
-					                </thead>
-					                <tbody id="">
-					                	<?php $sl = 1; ?>
-					                	<?php foreach ($menus as $menu): ?>
-					                		<tr class="row_<?= $menu->id ?>">
-					                			<td><?= $sl++ ?></td>
-					                			<td><?= $menu->menu_name ?></td>
-					                			<td><?= $menu->parentName ?></td>
-					                            <td><?= $menu->menu_link ?></td>
-                                                <td><?= $menu->menu_icon ?></td>
-					                            <td><?= $menu->order_by ?></td>
-					                			<td>
-					                				<?= $this->LinkModel->Status($menu->id,$menu->status); ?>
-					                			</td>
-					                			<td>
-					                				<?= $this->LinkModel->Action($menu->id); ?>
-					                			</td>
-					                		</tr>					                		
-					                	<?php endforeach ?>
-					                </tbody>
-					            </table>
-					        </div>
-					    </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="dataTable" class="table table-bordered table-striped"  name="areaTable">
+                                    <thead>
+                                        <tr>
+                                            <th width="20px">SL</th>
+                                            <th>Name</th>
+                                            <th>Parent</th>
+                                            <th>Link</th>
+                                            <th width="20px">Order</th>
+                                            <th width="20px">Status</th>
+                                            <th width="50px">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        <?php $sl = 1; ?>
+                                        <?php foreach ($variable as $key => $value): ?>
+                                            <tr class="row_">
+                                                <td><?=  $sl++ ?></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>                                            
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <!-- End PAge Content -->
 

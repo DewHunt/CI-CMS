@@ -61,8 +61,11 @@
 
 						    <div class="card-body">
 				                <div class="row">
-				                    <div class="col-md-12">
-				                        <input class="form-control" type="hidden" name="parentMenuId" value="<?= $menuId ?>">
+				                    <div class="col-md-6">
+				                        <input class="form-control" type="hidden" name="menuActionId" value="<?= $menuActionInfo->id ?>">
+				                    </div>
+				                    <div class="col-md-6">
+				                        <input class="form-control" type="hidden" name="parentMenuId" value="<?= $menuActionInfo->parent_menu_id ?>">
 				                    </div>
 				                </div>
 
@@ -73,7 +76,14 @@
 				                            <select class="form-control select2" name="actionTypeId">
 				                                <option value=" ">Select Action Type</option>
 				                                <?php foreach ($menuActionTypes as $menuActionType): ?>
-				                                    <option value="<?= $menuActionType->action_id ?>"><?= $menuActionType->name ?></option>
+				                                	<?php
+				                                		if ($menuActionType->action_id == $menuActionInfo->menu_type) {
+				                                			$select = 'selected';
+				                                		} else {
+				                                			$select = '';
+				                                		}				                                		
+				                                	?>
+				                                    <option value="<?= $menuActionType->action_id ?>" <?= $select ?>><?= $menuActionType->name ?></option>
 				                                <?php endforeach ?>
 				                            </select>
 				                        </div>
@@ -81,7 +91,7 @@
 				                    <div class="col-md-6">
 				                        <label for="name">Name</label>
 				                        <div class="form-group">
-				                            <input type="text" class="form-control form-control-danger" placeholder="Add" name="actionName" value="" required>
+				                            <input type="text" class="form-control form-control-danger" placeholder="Add" name="actionName" value="<?= $menuActionInfo->action_name ?>" required>
 				                        </div>
 				                    </div>
 				                </div>
@@ -90,13 +100,13 @@
 				                    <div class="col-md-6">
 				                        <label for="link">Link</label>
 				                        <div class="form-group">
-				                            <input type="text" class="form-control form-control-danger" placeholder="menu/add" name="actionLink" value="" required>
+				                            <input type="text" class="form-control form-control-danger" placeholder="menu/add" name="actionLink" value="<?= $menuActionInfo->action_link ?>" required>
 				                        </div>
 				                    </div>
 				                    <div class="col-md-6">
 				                        <label for="order-by">Order By</label>
 				                        <div class="form-group">
-				                            <input type="number" class="form-control form-control-danger" placeholder="order by" name="orderBy" value="<?= $orderBy ?>" required>
+				                            <input type="number" class="form-control form-control-danger" placeholder="order by" name="orderBy" value="<?= $menuActionInfo->order_by ?>" required>
 				                        </div>
 				                    </div>
 				                </div>

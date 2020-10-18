@@ -21,7 +21,8 @@ class MenuAction extends CI_Controller {
     public function Index($menuId)
     {
         $menuActionsList = $this->MenuActionModel->GetMenuActionListByMenuId($menuId);
-    	// echo "<pre>"; print_r($menuActionsList); exit();
+        $menuInfo = $this->HelperModel->GetDataById('tbl_menus',$menuId);
+    	// echo "<pre>"; print_r($menuInfo); exit();
 
         $this->data['title'] = "Menu Actions";
         $this->data['addButtonLink'] = "menuaction/add/".$menuId;
@@ -29,6 +30,7 @@ class MenuAction extends CI_Controller {
         $this->data['statusLink'] = "menuaction/status/";
         $this->data['goBackLink'] = "menu/";
         $this->data['menuActionsList'] = $menuActionsList;
+        $this->data['menuInfo'] = $menuInfo;
 
         $this->load->view('admin/menu_action/index', $this->data);
     }
@@ -36,6 +38,7 @@ class MenuAction extends CI_Controller {
     public function Add($menuId)
     {
         $menuActionTypes = $this->HelperModel->GetAllData('tbl_menu_action_type','name','ASC');
+        $menuInfo = $this->HelperModel->GetDataById('tbl_menus',$menuId);
 
         $menuActionMaxOrder = $this->MenuActionModel->GetMenuActionMaxOrder($menuId);
 
@@ -45,11 +48,12 @@ class MenuAction extends CI_Controller {
         	$orderBy = 1;
         }
 
-        $this->data['title'] = "Add New Menu";
+        $this->data['title'] = "Add New Menu Action";
         $this->data['formLink'] = "menuaction/save/";
         $this->data['buttonName'] = "Save";
         $this->data['goBackLink'] = "menuaction/index/".$menuId;
         $this->data['menuActionTypes'] = $menuActionTypes;
+        $this->data['menuInfo'] = $menuInfo;
         $this->data['orderBy'] = $orderBy;
         $this->data['menuId'] = $menuId;
 
@@ -83,58 +87,49 @@ class MenuAction extends CI_Controller {
     	}
     }
 
-    public function Edit($menuId)
+    public function Edit($menuActionId)
     {
-        $menus = $this->MenuModel->GetAllMenuInfo();
-        $menuInfo = $this->MenuModel->GetMenuInfoById($menuId);
+        $menuActionTypes = $this->HelperModel->GetAllData('tbl_menu_action_type','name','ASC');
+        $menuActionInfo = $this->HelperModel->GetDataById('tbl_menu_actions',$menuActionId);
+        $menuInfo = $this->HelperModel->GetDataById('tbl_menus',$menuActionInfo->parent_menu_id);
 
-        $this->data['title'] = "Edit Menu";
-        $this->data['formLink'] = "menu/update/";
+        $this->data['title'] = "Edit Menu Action";
+        $this->data['formLink'] = "menuaction/update/";
         $this->data['buttonName'] = "Update";
-        $this->data['goBackLink'] = "menu/";
-        $this->data['menus'] = $menus;
+        $this->data['goBackLink'] = "menuaction/index/".$menuActionInfo->parent_menu_id;
+        $this->data['menuActionTypes'] = $menuActionTypes;
         $this->data['menuInfo'] = $menuInfo;
+        $this->data['menuActionInfo'] = $menuActionInfo;
 
-        $this->load->view('admin/menu/edit', $this->data);
+        $this->load->view('admin/menu_action/edit', $this->data);
     }
 
     public function Update()
     {
-    	// echo "<pre>";
-    	// print_r($this->input->post()); exit();
+    	// echo "<pre>"; print_r($this->input->post()); exit();
 
-    	$menuLink = $this->input->post('menuLink');
-    	$id = $this->input->post('menuId');
+    	$actionLink = $this->input->post('actionLink');
+    	$menuActionId = $this->input->post('menuActionId');
+    	$parentMenuId = $this->input->post('parentMenuId');
 
-    	if ($menuLink == "") {
-    		$isExists == "";
-    	} else {
-    		$isExists = $this->HelperModel->CheckDataDuplicityByFieldAndId('tbl_menus','menu_link',$menuLink,$id);
-    	}    	
+    	$isExists = $this->HelperModel->CheckDataDuplicityByFieldAndId('tbl_menu_actions','action_link',$actionLink,$menuActionId);
 
     	if ($isExists) {
-    		$this->session->set_flashdata('error', 'Menu Link Already Exists.');
-    		redirect(base_url('menu/edit/'.$id));
+    		$this->session->set_flashdata('error', 'Menu Action Link Already Exists.');
+    		redirect(base_url('menuaction/edit/'.$menuActionId));
     	} else {
-    		if ($this->input->post('parentMenu') == "") {
-    			$parentMenu = NULL;
-    		} else {
-    			$parentMenu = $this->input->post('parentMenu');
-    		}
-    		
-
             $data = array(
-                'parent_menu' => $parentMenu,
-                'menu_name' => trim($this->input->post('menuName')),
-                'menu_link' => $menuLink,
-                'menu_icon' => trim($this->input->post('menuIcon')),
+                'parent_menu_id' => $parentMenuId,
+                'menu_type' => trim($this->input->post('actionTypeId')),
+                'action_name' => $this->input->post('actionName'),
+                'action_link' => $actionLink,
                 'order_by' => trim($this->input->post('orderBy')),
             );
 
-            $this->db->where('id',$id);
-            $this->db->update('tbl_menus', $data);
-    		$this->session->set_flashdata('message', 'Menu Updated Successfully.');
-    		redirect(base_url('menu'));
+            $this->db->where('id',$menuActionId);
+            $this->db->update('tbl_menu_actions', $data);
+    		$this->session->set_flashdata('message', 'Menu Action Updated Successfully.');
+    		redirect(base_url('menuaction/index/'.$parentMenuId));
     	}
     }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2020 at 01:44 AM
+-- Generation Time: Oct 18, 2020 at 10:48 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -114,7 +114,7 @@ INSERT INTO `tbl_menus` (`id`, `parent_menu`, `menu_name`, `menu_link`, `menu_ic
 (1, NULL, 'Dashboard', 'home', 'ti-layout-grid2', 1, '1', '2020-07-08 23:22:23', '2020-09-11 02:38:34'),
 (2, '13', 'Menu', 'menu', 'ti-settings', 1, '1', NULL, NULL),
 (3, '13', 'Users Role', 'userrole', 'ti-settings', 4, '1', '2020-03-03 13:48:57', '2020-03-15 06:02:37'),
-(4, '13', 'Menu Action Type', 'menuActionType.index', 'ti-settings', 2, '1', NULL, NULL),
+(4, '13', 'Menu Action Type', 'menuactiontype', 'ti-settings', 2, '1', NULL, NULL),
 (5, '13', 'User', 'user.index', 'ti-settings', 3, '1', '2020-03-14 02:06:15', '2020-03-15 06:02:33'),
 (6, NULL, 'Front-End Management', '', 'ti-layout-grid2', 3, '1', '2020-04-16 09:54:08', '2020-07-08 23:25:14'),
 (7, '6', 'Website Information', 'websiteInformation.index', 'ti-settings', 1, '1', '2020-04-16 10:43:15', '2020-04-16 10:43:15'),
@@ -156,16 +156,16 @@ CREATE TABLE `tbl_menu_actions` (
 --
 
 INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_name`, `action_link`, `order_by`, `status`, `created_at`, `updated_at`) VALUES
-(2, 2, 1, 'Add', 'menu/add/', 1, 1, NULL, NULL),
+(2, 2, 1, 'Add New', 'menu/add/', 1, 1, NULL, NULL),
 (3, 2, 2, 'Edit', 'menu/edit/', 2, 1, NULL, NULL),
 (4, 2, 3, 'Status', 'menu/status/', 3, 1, NULL, NULL),
 (5, 2, 8, 'View Menu Action', 'menuaction/index/', 4, 1, NULL, NULL),
 (6, 2, 4, 'Delete', 'menu/delete/', 5, 1, NULL, NULL),
-(7, 4, 1, 'Add', 'menuActionType.add', 1, 1, NULL, NULL),
-(8, 4, 2, 'Edit', 'menuActionType.edit', 2, 1, NULL, NULL),
-(9, 4, 3, 'Status', 'menuActionType.status', 3, 1, NULL, NULL),
-(10, 4, 4, 'Delete', 'menuActionType.delete', 4, 1, NULL, NULL),
-(11, 3, 1, 'Add', 'userrole/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
+(7, 4, 1, 'Add New', 'menuactiontype/add/', 1, 1, NULL, NULL),
+(8, 4, 2, 'Edit', 'menuactiontype/edit/', 2, 1, NULL, NULL),
+(9, 4, 3, 'Status', 'menuactiontype/status', 3, 1, NULL, NULL),
+(10, 4, 4, 'Delete', 'menuactiontype/delete', 4, 1, NULL, NULL),
+(11, 3, 1, 'Add New', 'userrole/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
 (12, 3, 2, 'Edit', 'userrole/edit/', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
 (13, 3, 5, 'Permission', 'userrole/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
 (14, 3, 3, 'Status', 'userrole/status/', 4, 1, '2020-03-07 00:18:08', '2020-03-07 00:18:08'),
@@ -429,8 +429,8 @@ CREATE TABLE `tbl_user_roles` (
 --
 
 INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `order_by`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
-(2, 'Super User', NULL, 1, NULL, 1, '1,6,7,8,10,11,12,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,25,26,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
-(3, 'Admin', 2, 1, NULL, 1, '1,6,7,8,10,11,12', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
+(2, 'Super User', NULL, 1, NULL, 1, '1,6,7,8,10,11,12,24,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,25,26,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
+(3, 'Admin', 2, 1, NULL, 1, '1,13,2,3', '3,4,5,6,12,13,14', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
 (4, 'User', NULL, 1, NULL, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23'),
 (5, 'Manager', NULL, NULL, 4, 1, '1,6,7', '28,29', NULL, NULL);
 
@@ -574,13 +574,13 @@ ALTER TABLE `tbl_frontend_menu`
 -- AUTO_INCREMENT for table `tbl_menus`
 --
 ALTER TABLE `tbl_menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu_actions`
 --
 ALTER TABLE `tbl_menu_actions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu_action_type`
@@ -622,7 +622,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_user_roles`
 --
 ALTER TABLE `tbl_user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_website_information`

@@ -15,9 +15,10 @@ clASs MenuActionModel extends CI_Model {
     public function GetMenuActionListByMenuId($menuId)
     {
         $result = $this->db->query("
-            SELECT `tbl_menu_actions`.*, `tbl_menus`.`menu_name` AS `parentMenuName` 
+            SELECT `tbl_menu_actions`.*, `tbl_menus`.`menu_name` AS `parentMenuName`, `tbl_menu_action_type`.`name` AS `actionTypeName` 
             FROM `tbl_menu_actions` 
-            LEFT JOIN `tbl_menus` ON `tbl_menus`.`id` = `tbl_menu_actions`.`parent_menu_id` 
+            LEFT JOIN `tbl_menus` ON `tbl_menus`.`id` = `tbl_menu_actions`.`parent_menu_id`
+            LEFT JOIN `tbl_menu_action_type` ON `tbl_menu_action_type`.`action_id` = `tbl_menu_actions`.`menu_type`
             WHERE `tbl_menu_actions`.`parent_menu_id` = $menuId
             ORDER BY `tbl_menu_actions`.`order_by` asc
         ")->result();

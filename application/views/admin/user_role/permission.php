@@ -186,7 +186,7 @@
 						                <?php else: ?>
 						                    <div class="row parentMenuBlock">
 						                    	<?php
-						                            $userMenuAction = $this->HelperModel->GetUserMenuAction($parentMenu->id);;
+						                            $userMenuAction = $this->HelperModel->GetUserMenuAction($rootMenu->id);
 						                            $rolePermission = explode(',', $userRoles->permission);
 						                            if (in_array($rootMenu->id, $rolePermission))
 						                            {

@@ -48,7 +48,7 @@
                     <div class="card">            
     			        <div class="custom-card-header">
     			            <div class="row">
-    			                <div class="col-md-6"><h4 class="custom-card-title"><?= $title ?></h4></div>
+    			                <div class="col-md-6"><h4 class="custom-card-title"><?= $title.' ('.$menuInfo->menu_name.')' ?></h4></div>
     			                <div class="col-md-6 text-right">
 				                	<a class="btn btn-outline-info btn-lg" href="<?= base_url($goBackLink) ?>">
 				                		<i class="fa fa-arrow-circle-left"></i> Go Back
@@ -67,6 +67,7 @@
 					                    <tr>
 					                        <th width="20px">SL</th>
 					                        <th>Name</th>
+                                            <th>Action Type</th>
 					                        <th>Parent</th>
 					                        <th>Link</th>
 					                        <th width="20px">Order</th>
@@ -80,6 +81,7 @@
 					                		<tr class="row_<?= $menuAction->id ?>">
 					                			<td><?= $sl++ ?></td>
 					                			<td><?= $menuAction->action_name ?></td>
+                                                <td><?= $menuAction->actionTypeName ?></td>
 					                			<td><?= $menuAction->parentMenuName ?></td>
 					                            <td><?= $menuAction->action_link ?></td>
 					                            <td><?= $menuAction->order_by ?></td>

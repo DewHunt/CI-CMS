@@ -2,14 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Menu extends CI_Controller {
+class MenuActionType extends CI_Controller {
 
     public function __construct()
     {
         parent:: __construct();
         $this->load->library('form_validation');
         // $this->load->helper('settings_helper');
-        $this->load->model('MenuModel');
+        $this->load->model('MenuActionTypeModel');
         
         if (empty($this->session->userdata('sessionUserInfo'))) {
             redirect(base_url('login'));
@@ -18,12 +18,12 @@ class Menu extends CI_Controller {
 
     public function Index()
     {
-        $menus = $this->MenuModel->GetAllMenuList();
+        $menuActionTypes = $this->HelperModel->GetAllData('tbl_menu_action_type','name','ASC');
 
-        $this->data['title'] = "Menu";
-        $this->data['menus'] = $menus;
+        $this->data['title'] = "Menu Action Type";
+        $this->data['menuActionTypes'] = $menuActionTypes;
 
-        $this->load->view('admin/menu/index', $this->data);
+        $this->load->view('admin/menu_action_type/index', $this->data);
     }
 
     public function Add()
@@ -65,14 +65,10 @@ class Menu extends CI_Controller {
     		$this->session->set_flashdata('error', 'Menu Link Already Exists.');
     		redirect(base_url('menu/add'));
     	} else {
-    		if ($this->input->post('parentMenu') == "") {
-    			$parentMenu = NULL;
-    		} else {
-    			$parentMenu = $this->input->post('parentMenu');
-    		}
+	    	$orderBy = $this->input->post('orderBy');
 
             $data = array(
-                'parent_menu' => $parentMenu,
+                'parent_menu' => trim($this->input->post('parentMenu')),
                 'menu_name' => trim($this->input->post('menuName')),
                 'menu_link' => $menuLink,
                 'menu_icon' => trim($this->input->post('menuIcon')),
@@ -122,7 +118,8 @@ class Menu extends CI_Controller {
     			$parentMenu = NULL;
     		} else {
     			$parentMenu = $this->input->post('parentMenu');
-    		}    		
+    		}
+    		
 
             $data = array(
                 'parent_menu' => $parentMenu,
@@ -142,14 +139,13 @@ class Menu extends CI_Controller {
     public function Delete()
     {
     	$id = $this->input->post('id');
-    	$this->db->delete('tbl_menus', array('id' => $id));
-    	$this->db->delete('tbl_menu_actions', array('parent_menu_id' => $id));
+    	$this->db->delete('tbl_menu_action_type', array('id' => $id));
     }
 
     public function Status()
     {
     	$id = $this->input->post('id');
-    	$this->HelperModel->UpdateStatus('tbl_menus',$id);
+    	$this->HelperModel->UpdateStatus('tbl_menu_action_type',$id);
     }
 
     public function MaxOrder()

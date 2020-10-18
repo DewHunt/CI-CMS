@@ -21,9 +21,6 @@ class UserRole extends CI_Controller {
         $allUserRole = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
 
         $this->data['title'] = "User Role";
-        $this->data['addButtonLink'] = "userrole/add/";
-        $this->data['deleteLink'] = "userrole/delete";
-        $this->data['statusLink'] = "userrole/status/";
         $this->data['allUserRole'] = $allUserRole;
 
         $this->load->view('admin/user_role/index', $this->data);
@@ -109,7 +106,7 @@ class UserRole extends CI_Controller {
     	$userMenus = $this->MenuModel->GetAllMenuInfo();
     	$userRoles = $this->HelperModel->GetDataById('tbl_user_roles',$userRoleId);
 
-    	// echo "<pre>"; print_r($userRoles); exit();
+    	// echo "<pre>"; print_r($userMenus); exit();
 
         $this->data['title'] = "User Permission";
         $this->data['formLink'] = "userrole/updatepermission/";
