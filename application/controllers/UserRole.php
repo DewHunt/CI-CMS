@@ -31,7 +31,6 @@ class UserRole extends CI_Controller {
         $this->data['title'] = "Add New User Role";
         $this->data['formLink'] = "userrole/save";
         $this->data['buttonName'] = "Save";
-        $this->data['goBackLink'] = "userrole";
 
         $this->load->view('admin/user_role/add', $this->data);
     }
@@ -68,7 +67,6 @@ class UserRole extends CI_Controller {
         $this->data['title'] = "Edit User Role";
         $this->data['formLink'] = "userrole/update";
         $this->data['buttonName'] = "Update";
-        $this->data['goBackLink'] = "userrole";
         $this->data['userRoleInfo'] = $userRoleInfo;
 
         $this->load->view('admin/user_role/edit', $this->data);
@@ -111,7 +109,6 @@ class UserRole extends CI_Controller {
         $this->data['title'] = "User Permission";
         $this->data['formLink'] = "userrole/updatepermission/";
         $this->data['buttonName'] = "Update";
-        $this->data['goBackLink'] = "userrole/";
         $this->data['userMenus'] = $userMenus;
         $this->data['userRoles'] = $userRoles;
 

@@ -9,13 +9,15 @@ class HelperModel extends CI_Model {
         $this->load->database();
     }
 
-    public function GetAllData($tableName,$fieldName,$order) {
+    public function GetAllData($tableName,$fieldName,$order)
+    {
     	$results = $this->db->query("SELECT * FROM $tableName ORDER BY $fieldName $order")->result();
 
     	return $results;
     }
 
-    public function GetDataById($tableName,$id) {
+    public function GetDataById($tableName,$id)
+    {
     	$results = $this->db->query("SELECT * FROM $tableName WHERE id = $id")->row();
 
     	return $results;

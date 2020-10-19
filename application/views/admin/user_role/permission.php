@@ -59,9 +59,7 @@
     				            <div class="row">
     				                <div class="col-md-6"><h4 class="custom-card-title"><?= $title ?></h4></div>
     				                <div class="col-md-6 text-right">
-    				                	<a class="btn btn-outline-info btn-lg" href="<?= base_url($goBackLink) ?>">
-    				                		<i class="fa fa-arrow-circle-left"></i> Go Back
-    				                	</a>
+    				                	<?= $this->LinkModel->GoBackLink(); ?>
     				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="Save"><i class="fa fa-save"></i> <?= $buttonName ?></button>
     				                </div>
     				            </div>
