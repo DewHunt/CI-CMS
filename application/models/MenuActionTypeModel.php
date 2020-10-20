@@ -11,4 +11,11 @@ clASs MenuActionTypeModel extends CI_Model {
         parent::__construct();
         $this->load->databASe();
     }
+
+    public function GetMaxAction()
+    {
+    	$maxActionId = $this->db->query("SELECT MAX(action_id) AS maxActionId FROM tbl_menu_action_type")->row();
+
+    	return $maxActionId;
+    }
 }

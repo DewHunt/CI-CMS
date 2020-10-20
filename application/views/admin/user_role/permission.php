@@ -57,7 +57,7 @@
     				    <div class="card">
     				        <div class="custom-card-header">
     				            <div class="row">
-    				                <div class="col-md-6"><h4 class="custom-card-title"><?= $title ?></h4></div>
+    				                <div class="col-md-6"><h4 class="custom-card-title"><?= $title.' ('.$userRoles->name.')' ?></h4></div>
     				                <div class="col-md-6 text-right">
     				                	<?= $this->LinkModel->GoBackLink(); ?>
     				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="Save"><i class="fa fa-save"></i> <?= $buttonName ?></button>

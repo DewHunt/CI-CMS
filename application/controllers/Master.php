@@ -17,7 +17,7 @@ class Master extends CI_Controller {
     }
 
     public function Index()
-    {        
+    {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->IndexLink())) {
             redirect(base_url('login'));
         } else {
@@ -27,7 +27,7 @@ class Master extends CI_Controller {
             $this->data['data'] = $data;
 
             $this->load->view('admin/folder_name/index', $this->data);
-        }        
+        }
     }
 
     public function Add()
