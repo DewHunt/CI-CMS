@@ -140,12 +140,12 @@ class User extends CI_Controller {
     }
 
     public function UploadImage($inputName,$maxSize,$link)
-    {
-        $imagePath = '';            
+    {            
         if ((int) $_FILES['userImage']["size"] > ($maxSize * 1024)) {
             $this->session->set_flashdata('error', 'Image size can not be more than '.$maxSize.' KB');
             redirect(base_url($link));
         } else {
+            $imagePath = '';
             $imageName = $_FILES[$inputName]['name'];
             // $imageSize = $_FILES[$inputName]["size"];
             $config['file_name'] = $imageName;
