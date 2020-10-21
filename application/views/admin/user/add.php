@@ -74,14 +74,14 @@
 						            <div class="col-md-4">                 
 						                <div class="form-group">
 						                    <label for="name">Name</label>
-						                    <input type="text" class="form-control form-control-danger" name="name" value="" required>
+						                    <input type="text" class="form-control" name="name" placeholder="Name" value="" required>
 						                </div>                                       
 						            </div>
 
 						            <div class="col-md-4">
 						                <div class="form-group">
 						                    <label for="user-name">User Name</label>
-						                    <input type="text" class="form-control form-control-danger" name="username" value="" required>
+						                    <input type="text" class="form-control" name="username" placeholder="User Name" value="" required>
 						                </div>
 						            </div>
 						        </div>
@@ -90,14 +90,14 @@
 						            <div class="col-md-4"> 
 						                <div class="form-group">
 						                    <label for="email">Email</label>
-						                    <input type="email" class="form-control form-control-danger" name="email" value="" required>
+						                    <input type="email" class="form-control" name="email" value="" placeholder="Email" required>
 						                </div>                                       
 						            </div>
 
 						            <div class="col-md-4">
 						                <div class="form-group">
 						                    <label for="password">Password</label>
-						                    <input type="password" class="form-control form-control-danger" name="password" value="" required>
+						                    <input type="password" class="form-control" name="password" value="" placeholder="Password" required>
 						                </div>                                        
 						            </div>
 						            

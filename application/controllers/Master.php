@@ -131,4 +131,22 @@ class Master extends CI_Controller {
             $this->HelperModel->UpdateStatus($tableName,$id);
         }
     }
+
+    public function UploadImage($inputName)
+    {
+        $imagePath = '';
+        $imageName = $_FILES[$inputName]['name'];
+        // $imageSize = $_FILES[$inputName]["size"];
+        $config['file_name'] = $imageName;
+        $config['upload_path'] = './public/uploads/user_images/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        // $config['max_size'] = $maxSize;
+        $this->load->library('upload', $config);
+        if ($this->upload->do_upload($inputName)) {
+            $imagePath  = '/public/uploads/user_images/' . $config['file_name'];
+            return $imagePath;
+        } else {
+            return "failed";
+        }
+    }
 }
