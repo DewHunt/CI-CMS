@@ -2,14 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Master extends CI_Controller {
+class User extends CI_Controller {
 
     public function __construct()
     {
         parent:: __construct();
         $this->load->library('form_validation');
         // $this->load->helper('settings_helper');
-        $this->load->model('MasterModel');
+        $this->load->model('UserModel');
         
         if (empty($this->session->userdata('sessionUserInfo'))) {
             redirect(base_url('login'));
@@ -21,12 +21,12 @@ class Master extends CI_Controller {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->IndexLink())) {
             redirect(base_url('login'));
         } else {
-            $data = $this->HelperModel->GetAllData($tableName,$fieldName,$order);
+            $allUsers = $this->UserModel->GetAllUsers();
 
-            $this->data['title'] = "Menu";
-            $this->data['data'] = $data;
+            $this->data['title'] = "User";
+            $this->data['allUsers'] = $allUsers;
 
-            $this->load->view('admin/folder_name/index', $this->data);
+            $this->load->view('admin/user/index', $this->data);
         }
     }
 
@@ -35,11 +35,14 @@ class Master extends CI_Controller {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
             redirect(base_url('login'));
         } else {
-            $this->data['title'] = "Add New Menu";
-            $this->data['formLink'] = "menu/save/";
-            $this->data['buttonName'] = "Save";
+        	$allUserRoles = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
 
-            $this->load->view('admin/folder_name/add', $this->data);
+            $this->data['title'] = "Add New User";
+            $this->data['formLink'] = "user/save/";
+            $this->data['buttonName'] = "Save";
+            $this->data['allUserRoles'] = $allUserRoles;
+
+            $this->load->view('admin/user/add', $this->data);
         }
     }
 
@@ -56,7 +59,7 @@ class Master extends CI_Controller {
 
         	if ($isExists) {
         		$this->session->set_flashdata('error', 'Data Already Exists.');
-        		redirect(base_url('master/add'));
+        		redirect(base_url('user/add'));
         	} else {
                 $data = array(
                     'field_name' => trim($this->input->post('inputName')),
@@ -64,24 +67,26 @@ class Master extends CI_Controller {
 
                 $this->db->insert('tbl_menus', $data);
         		$this->session->set_flashdata('message', 'Menu Save Successfully.');
-        		redirect(base_url('master'));
+        		redirect(base_url('user'));
         	}
         }
     }
 
-    public function Edit($id)
+    public function Edit($userId)
     {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
             redirect(base_url('login'));
         } else {
-            $dataInfo = $this->HelperModel->GetDataById($tableName,$id);
+            $userInfo = $this->HelperModel->GetDataById('tbl_users',$userId);
+        	$allUserRoles = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
 
-            $this->data['title'] = "Edit Data";
-            $this->data['formLink'] = "master/update/";
+            $this->data['title'] = "Edit User";
+            $this->data['formLink'] = "user/update/";
             $this->data['buttonName'] = "Update";
-            $this->data['dataInfo'] = $dataInfo;
+            $this->data['userInfo'] = $userInfo;
+            $this->data['allUserRoles'] = $allUserRoles;
 
-            $this->load->view('admin/folder_name/edit', $this->data);
+            $this->load->view('admin/user/edit', $this->data);
         }
     }
 
@@ -98,7 +103,7 @@ class Master extends CI_Controller {
 
         	if ($isExists) {
         		$this->session->set_flashdata('error', 'Data Already Exists.');
-        		redirect(base_url('master/edit/'.$id));
+        		redirect(base_url('user/edit/'.$id));
         	} else {
                 $data = array(
                     'field_name' => trim($this->input->post('inputName')),
@@ -107,7 +112,7 @@ class Master extends CI_Controller {
                 $this->db->where('id',$id);
                 $this->db->update($tableName, $data);
         		$this->session->set_flashdata('message', 'Data Updated Successfully.');
-        		redirect(base_url('master'));
+        		redirect(base_url('user'));
         	}
         }
     }
