@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MenuAction extends CI_Controller {
+class MenuAction extends Admin_Controller {
 
     public function __construct()
     {

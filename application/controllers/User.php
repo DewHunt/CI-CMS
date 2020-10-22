@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+class User extends Admin_Controller {
 
     public function __construct()
     {
@@ -52,7 +52,8 @@ class User extends CI_Controller {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
             redirect(base_url('login'));
         } else {
-            echo $imagePath = $this->UploadImage('userImage',100,'user/add');
+            // $imagePath = $this->UploadImage('userImage',100,'user/add');
+            $this->Test();
         	echo "<pre>"; print_r($this->input->post()); exit();
 
         	$data = $this->input->post('inputName');

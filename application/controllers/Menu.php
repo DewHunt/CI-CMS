@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Menu extends CI_Controller {
+class Menu extends Admin_Controller {
 
     public function __construct()
     {
@@ -17,7 +17,7 @@ class Menu extends CI_Controller {
     }
 
     public function Index()
-    {        
+    {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->IndexLink())) {
             redirect(base_url('login'));
         } else {
