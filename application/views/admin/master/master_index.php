@@ -10,6 +10,8 @@
         <meta name="author" content="">
 
         <?php include APPPATH.'views/admin/include/header-assets.php'; ?>
+
+        <?= empty($this->customCss) ? '' : $this->customCss ?>
     </head>
 
     <body class="skin-default fixed-layout">
@@ -59,7 +61,8 @@
     			        </div>
 
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <?= empty($this->cardBodyContent) ? 'Body Content Here' : $this->cardBodyContent ?>
+                            <!-- <div class="table-responsive">
                                 <table id="dataTable" class="table table-bordered table-striped"  name="areaTable">
                                     <thead>
                                         <tr>
@@ -87,7 +90,7 @@
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-- End PAge Content -->
@@ -102,5 +105,7 @@
         </div>
         <?php include APPPATH.'views/admin/include/footer-assets.php'; ?>
         <?php include APPPATH.'views/admin/include/status-and-delete.php'; ?>
+
+        <?= empty($this->customJs) ? '' : $this->customJs ?>
     </body>
 </html>

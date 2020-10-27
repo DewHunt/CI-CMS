@@ -10,6 +10,8 @@
         <meta name="author" content="">
 
         <?php include APPPATH.'views/admin/include/header-assets.php'; ?>
+
+        <?= empty($this->customCss) ? '' : $this->customCss ?>
     </head>
 
     <body class="skin-default fixed-layout">
@@ -57,7 +59,9 @@
     				            </div>
     				        </div>
 
-						    <div class="card-body"></div>
+                            <div class="card-body">
+                                <?= empty($this->cardBodyContent) ? 'Body Content Here' : $this->cardBodyContent ?>
+                            </div>
 
     				        <div class="custom-card-footer">
     				            <div class="row">
@@ -80,6 +84,6 @@
         </div>
         <?php include APPPATH.'views/admin/include/footer-assets.php'; ?>
 
-	    <script type="text/javascript"></script>
+        <?= empty($this->customJs) ? '' : $this->customJs ?>
     </body>
 </html>

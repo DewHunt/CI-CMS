@@ -22,7 +22,7 @@ class Admin_Controller extends CI_Controller {
         echo "OK"; exit();
     }
 
-    public function UploadImage($inputName,$maxSize,$link)
+    public function UploadImage($inputName,$maxSize,$link,$path)
     {           
         if ((int) $_FILES['userImage']["size"] > ($maxSize * 1024)) {
             $this->session->set_flashdata('error', 'Image size can not be more than '.$maxSize.' KB');
@@ -32,13 +32,14 @@ class Admin_Controller extends CI_Controller {
             $imageName = $_FILES[$inputName]['name'];
             // $imageSize = $_FILES[$inputName]["size"];
             $config['file_name'] = $imageName;
-            $config['upload_path'] = './public/uploads/user_images/';
+            // $config['upload_path'] = $path;
+            $config['upload_path'] = realpath(FCPATH.$path);
             $config['allowed_types'] = 'gif|jpg|png';
             // $config['max_size'] = $maxSize;
 
             $this->load->library('upload', $config);
             if ($this->upload->do_upload($inputName)) {
-                $imagePath  = '/public/uploads/user_images/' . $config['file_name'];
+                $imagePath  = $path . $config['file_name'];
                 return $imagePath;
             } else {
                 $this->session->set_flashdata('error', 'Something Went Wrong. Please Try Again');

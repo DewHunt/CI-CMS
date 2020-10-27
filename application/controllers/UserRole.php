@@ -24,9 +24,11 @@ class UserRole extends Admin_Controller {
             $allUserRole = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
 
             $this->data['title'] = "User Role";
-            $this->data['allUserRole'] = $allUserRole;
+            $this->contentData['allUserRole'] = $allUserRole;
 
-            $this->load->view('admin/user_role/index', $this->data);
+            $this->cardBodyContent = $this->load->view('admin/user_role/index', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master_index', $this->data);
         }
     }
 
@@ -39,7 +41,9 @@ class UserRole extends Admin_Controller {
             $this->data['formLink'] = "userrole/save";
             $this->data['buttonName'] = "Save";
 
-            $this->load->view('admin/user_role/add', $this->data);
+            $this->cardBodyContent = $this->load->view('admin/user_role/add', '', TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 
@@ -82,9 +86,12 @@ class UserRole extends Admin_Controller {
             $this->data['title'] = "Edit User Role";
             $this->data['formLink'] = "userrole/update";
             $this->data['buttonName'] = "Update";
-            $this->data['userRoleInfo'] = $userRoleInfo;
 
-            $this->load->view('admin/user_role/edit', $this->data);
+            $this->contentData['userRoleInfo'] = $userRoleInfo;
+
+            $this->cardBodyContent = $this->load->view('admin/user_role/edit', $this->contentData, TRUE);
+            
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 
@@ -132,10 +139,15 @@ class UserRole extends Admin_Controller {
             $this->data['title'] = "User Permission";
             $this->data['formLink'] = "userrole/updatepermission/";
             $this->data['buttonName'] = "Update";
-            $this->data['userMenus'] = $userMenus;
-            $this->data['userRoles'] = $userRoles;
 
-            $this->load->view('admin/user_role/permission', $this->data);
+            $this->contentData['userMenus'] = $userMenus;
+            $this->contentData['userRoles'] = $userRoles;
+
+            $this->customCss = $this->load->view('admin/user_role/css', '', TRUE);
+            $this->cardBodyContent = $this->load->view('admin/user_role/permission', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/user_role/js', '', TRUE);
+            
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 

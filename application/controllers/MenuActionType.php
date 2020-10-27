@@ -24,9 +24,11 @@ class MenuActionType extends Admin_Controller {
 	        $menuActionTypes = $this->HelperModel->GetAllData('tbl_menu_action_type','action_id','ASC');
 
 	        $this->data['title'] = "Menu Action Type";
-	        $this->data['menuActionTypes'] = $menuActionTypes;
+	        $this->contentData['menuActionTypes'] = $menuActionTypes;
 
-	        $this->load->view('admin/menu_action_type/index', $this->data);
+            $this->cardBodyContent = $this->load->view('admin/menu_action_type/index', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master_index', $this->data);
         }
     }
 
@@ -46,9 +48,12 @@ class MenuActionType extends Admin_Controller {
 	        $this->data['title'] = "Add New Menu Action Type";
 	        $this->data['formLink'] = "menuactiontype/save/";
 	        $this->data['buttonName'] = "Save";
-	        $this->data['actionId'] = $actionId;
 
-	        $this->load->view('admin/menu_action_type/add', $this->data);
+	        $this->contentData['actionId'] = $actionId;
+
+            $this->cardBodyContent = $this->load->view('admin/menu_action_type/add', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
 	    }
     }
 
@@ -88,9 +93,12 @@ class MenuActionType extends Admin_Controller {
 	        $this->data['title'] = "Edit Menu Action Type";
 	        $this->data['formLink'] = "menuactiontype/update/";
 	        $this->data['buttonName'] = "Update";
-	        $this->data['menuActionTypeInfo'] = $menuActionTypeInfo;
 
-	        $this->load->view('admin/menu_action_type/edit', $this->data);
+	        $this->contentData['menuActionTypeInfo'] = $menuActionTypeInfo;
+
+            $this->cardBodyContent = $this->load->view('admin/menu_action_type/edit', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
 	    }
     }
 

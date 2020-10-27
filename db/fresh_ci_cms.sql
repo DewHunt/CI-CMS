@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2020 at 11:45 PM
+-- Generation Time: Oct 27, 2020 at 09:46 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -389,6 +389,7 @@ CREATE TABLE `tbl_users` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_name` text COLLATE utf8mb4_unicode_ci,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
@@ -401,9 +402,9 @@ CREATE TABLE `tbl_users` (
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `role`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'Admin', 'admin@gmail.com', 'Admin', 2, '8cb2237d0679ca88db6464eac60da96345513964', 1, 'HftBsS0WaFhNaeki9GEnbTOdo99h14G9dS1WtBq9AJJkzUuSyNKsUxMufhEx', '2019-04-17 01:04:35', '2020-09-11 03:23:42'),
-(7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', 3, '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40');
+INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `image`, `role`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, 'Admin', 'admin@gmail.com', 'Admin', '/public/uploads/user_images/avatar7_20165942041.png', 2, '8cb2237d0679ca88db6464eac60da96345513964', 1, 'HftBsS0WaFhNaeki9GEnbTOdo99h14G9dS1WtBq9AJJkzUuSyNKsUxMufhEx', '2019-04-17 01:04:35', '2020-09-11 03:23:42'),
+(7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', '/public/uploads/user_images/images_21444773304.jpg', 3, '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40');
 
 -- --------------------------------------------------------
 

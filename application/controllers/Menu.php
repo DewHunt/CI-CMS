@@ -24,9 +24,11 @@ class Menu extends Admin_Controller {
             $menus = $this->MenuModel->GetAllMenuList();
 
             $this->data['title'] = "Menu";
-            $this->data['menus'] = $menus;
+            $this->contentData['menus'] = $menus;
 
-            $this->load->view('admin/menu/index', $this->data);
+            $this->cardBodyContent = $this->load->view('admin/menu/index', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master_index', $this->data);
         }        
     }
 
@@ -49,10 +51,14 @@ class Menu extends Admin_Controller {
             $this->data['title'] = "Add New Menu";
             $this->data['formLink'] = "menu/save/";
             $this->data['buttonName'] = "Save";
-            $this->data['menus'] = $menus;
-            $this->data['orderBy'] = $orderBy;
 
-            $this->load->view('admin/menu/add', $this->data);
+            $this->contentData['menus'] = $menus;
+            $this->contentData['orderBy'] = $orderBy;
+
+            $this->cardBodyContent = $this->load->view('admin/menu/add', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/menu/js', '', TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 
@@ -108,10 +114,14 @@ class Menu extends Admin_Controller {
             $this->data['title'] = "Edit Menu";
             $this->data['formLink'] = "menu/update/";
             $this->data['buttonName'] = "Update";
-            $this->data['menus'] = $menus;
-            $this->data['menuInfo'] = $menuInfo;
 
-            $this->load->view('admin/menu/edit', $this->data);
+            $this->contentData['menus'] = $menus;
+            $this->contentData['menuInfo'] = $menuInfo;
+
+            $this->cardBodyContent = $this->load->view('admin/menu/edit', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/menu/js', '', TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 

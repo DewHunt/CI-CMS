@@ -24,9 +24,14 @@ class Master extends Admin_Controller {
             $data = $this->HelperModel->GetAllData($tableName,$fieldName,$order);
 
             $this->data['title'] = "Menu";
-            $this->data['data'] = $data;
 
-            $this->load->view('admin/folder_name/index', $this->data);
+            $this->contentData['data'] = $data;
+
+            $this->customCss = $this->load->view('admin/folder_name/css', '', TRUE);
+            $this->cardBodyContent = $this->load->view('admin/folder_name/index', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/folder_name/js', '', TRUE);
+
+            $this->load->view('admin/master/master_index', $this->data);
         }
     }
 
@@ -39,7 +44,13 @@ class Master extends Admin_Controller {
             $this->data['formLink'] = "menu/save/";
             $this->data['buttonName'] = "Save";
 
-            $this->load->view('admin/folder_name/add', $this->data);
+            $this->contentData['variableName'] = "";
+
+            $this->customCss = $this->load->view('admin/folder_name/css', '', TRUE);
+            $this->cardBodyContent = $this->load->view('admin/folder_name/add', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/folder_name/js', '', TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 
@@ -79,9 +90,15 @@ class Master extends Admin_Controller {
             $this->data['title'] = "Edit Data";
             $this->data['formLink'] = "master/update/";
             $this->data['buttonName'] = "Update";
-            $this->data['dataInfo'] = $dataInfo;
 
-            $this->load->view('admin/folder_name/edit', $this->data);
+            $this->contentData['dataInfo'] = $dataInfo;
+            $this->contentData['variableName'] = "";
+
+            $this->customCss = $this->load->view('admin/folder_name/css', '', TRUE);
+            $this->cardBodyContent = $this->load->view('admin/folder_name/edit', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/folder_name/js', '', TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 
