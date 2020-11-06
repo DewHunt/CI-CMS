@@ -36,34 +36,18 @@
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Success!</strong> <?= $this->session->flashdata('message') ?>
-                        </div>                    	
+                        </div>                      
                     <?php endif ?>
 
                     <?php if (!empty($this->session->flashdata('error'))): ?>
                         <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             <strong>Oops!</strong> <?= $this->session->flashdata('error') ?>
-                        </div>                    	
+                        </div>                      
                     <?php endif ?>
 
                     <!-- Start Page Content -->
-                    <div class="card">            
-    			        <div class="custom-card-header">
-    			            <div class="row">
-    			                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"><h4 class="custom-card-title"><?= $title ?></h4></div>
-    			                <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-			                        <!-- <a style="font-size: 16px;" class="btn btn-outline-info btn-lg" href="<?= base_url($addButtonLink) ?>">
-			                            <i class="fa fa-plus-circle"></i> Add New
-			                        </a> -->
-                                    <?= $this->LinkModel->AddLink(); ?>
-    			                </div>
-    			            </div>
-    			        </div>
-
-                        <div class="card-body">
-                            <?= empty($this->cardBodyContent) ? 'Body Content Here' : $this->cardBodyContent ?>
-                        </div>
-                    </div>
+                    <?= empty($this->cardContent) ? 'Body Content Here' : $this->cardContent ?>
                     <!-- End PAge Content -->
 
                     <!-- Right sidebar -->

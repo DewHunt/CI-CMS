@@ -17,11 +17,6 @@ class Admin_Controller extends CI_Controller {
         }
     }
 
-    public function Test()
-    {
-        echo "OK"; exit();
-    }
-
     public function UploadImage($inputName,$maxSize,$link,$path)
     {           
         if ((int) $_FILES['userImage']["size"] > ($maxSize * 1024)) {

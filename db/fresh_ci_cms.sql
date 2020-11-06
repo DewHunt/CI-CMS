@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2020 at 09:46 PM
+-- Generation Time: Nov 06, 2020 at 11:06 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -123,7 +123,7 @@ INSERT INTO `tbl_menus` (`id`, `parent_menu`, `menu_name`, `menu_link`, `menu_ic
 (11, '6', 'Sliders', 'sliders.index', 'ti-settings', 4, '1', '2020-04-19 08:19:58', '2020-04-19 08:19:58'),
 (12, '6', 'Pages', 'page.index', 'ti-settings', 5, '1', '2020-05-10 05:09:10', '2020-05-10 05:09:10'),
 (13, NULL, 'User Management', '', 'ti-layout-grid2', 2, '1', NULL, '2020-07-08 23:25:07'),
-(15, '13', 'Admin Information', 'adminPanelInformation.index', '', 5, '1', '2020-07-09 00:45:20', '2020-07-09 00:45:20'),
+(15, '13', 'Admin Information', 'admininformation', 'ti-layout-grid2', 5, '1', '2020-07-09 00:45:20', '2020-07-09 00:45:20'),
 (16, NULL, 'No Sub Menu', 'NoSubMenu', 'ti-layout-grid2', 4, '1', NULL, NULL),
 (17, NULL, 'Multi Level Menu', '', 'ti-layout-grid2', 5, '1', NULL, NULL),
 (18, '17', 'Parent Menu 1', 'ParentMenuOne', 'ti-settings', 1, '1', NULL, NULL),
@@ -163,8 +163,8 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (6, 2, 4, 'Delete', 'menu/delete/', 5, 1, NULL, NULL),
 (7, 4, 1, 'Add New', 'menuactiontype/add/', 1, 1, NULL, NULL),
 (8, 4, 2, 'Edit', 'menuactiontype/edit/', 2, 1, NULL, NULL),
-(9, 4, 3, 'Status', 'menuactiontype/status', 3, 1, NULL, NULL),
-(10, 4, 4, 'Delete', 'menuactiontype/delete', 4, 1, NULL, NULL),
+(9, 4, 3, 'Status', 'menuactiontype/status/', 3, 1, NULL, NULL),
+(10, 4, 4, 'Delete', 'menuactiontype/delete/', 4, 1, NULL, NULL),
 (11, 3, 1, 'Add New', 'userrole/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
 (12, 3, 2, 'Edit', 'userrole/edit/', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
 (13, 3, 5, 'Permission', 'userrole/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
@@ -195,8 +195,8 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (49, 12, 3, 'Status', 'page.status', 3, 1, '2020-05-10 05:10:22', '2020-05-10 05:10:22'),
 (50, 12, 8, 'View Posts', 'post.index', 4, 1, '2020-05-10 05:11:48', '2020-05-10 05:11:48'),
 (51, 12, 4, 'Delete', 'page.delete', 5, 1, '2020-05-10 05:12:01', '2020-05-10 05:12:01'),
-(52, 15, 1, 'Add', 'adminPanelInformation.add', 1, 1, '2020-07-09 00:45:42', '2020-07-09 00:45:42'),
-(53, 15, 2, 'Edit', 'adminPanelInformation.edit', 2, 1, '2020-07-09 00:45:50', '2020-07-09 00:45:50'),
+(52, 15, 1, 'Add', 'admininformation/add/', 1, 1, '2020-07-09 00:45:42', '2020-07-09 00:45:42'),
+(53, 15, 2, 'Edit', 'admininformation/edit/', 2, 1, '2020-07-09 00:45:50', '2020-07-09 00:45:50'),
 (54, 16, 1, 'Add', 'nosubmenu/add/', 1, 1, NULL, NULL),
 (55, 16, 2, 'Edit', 'nosubmenu/edit/', 2, 1, NULL, NULL),
 (56, 19, 1, 'Add', 'childmenu/add', 1, 1, NULL, NULL),

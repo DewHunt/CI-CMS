@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-clASs UserRoleModel extends CI_Model {
+class UserRoleModel extends CI_Model {
     public $table_name = 'tbl_user_roles';
     protected $primary_key = 'id';
 

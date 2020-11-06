@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-clASs MenuActionTypeModel extends CI_Model {
+class MenuActionTypeModel extends CI_Model {
     public $table_name = 'tbl_menu_action_type';
     protected $primary_key = 'id';
 

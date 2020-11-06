@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-clASs MenuModel extends CI_Model {
+class MenuModel extends CI_Model {
     public $table_name = 'tbl_menus';
     protected $primary_key = 'id';
 
