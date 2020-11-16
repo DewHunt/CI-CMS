@@ -58,7 +58,7 @@
 	            	?>
 
 	                <div class="card-body">
-	                    <form class="form-horizontal form-material" id="loginform" method="POST" action="<?= base_url('login/loginAction') ?>">
+	                    <form class="form-horizontal form-material" id="loginform" method="POST" action="<?= base_url('login/login_action') ?>">
 	                        <h3 class="text-center m-b-20">Sign In</h3>
 
 	                        <div class="form-group ">

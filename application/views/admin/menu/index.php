@@ -23,10 +23,10 @@
                     <td><?= $menu->menu_icon ?></td>
                     <td><?= $menu->order_by ?></td>
         			<td>
-        				<?= $this->LinkModel->Status($menu->id,$menu->status); ?>
+        				<?= $this->Link_model->status($menu->id,$menu->status); ?>
         			</td>
         			<td>
-        				<?= $this->LinkModel->Action($menu->id); ?>
+        				<?= $this->Link_model->action($menu->id); ?>
         			</td>
         		</tr>					                		
         	<?php endforeach ?>

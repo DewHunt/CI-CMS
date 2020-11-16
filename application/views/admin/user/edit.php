@@ -1,4 +1,6 @@
 <div class="row">
+    <input class="form-control" type="hidden" name="userId" value="<?= $userInfo->id ?>">
+
     <div class="col-md-4"> 
         <div class="form-group">
             <label for="role">User Role</label>
@@ -45,6 +47,7 @@
         <div class="form-group">
             <label for="user-image">User Image</label>
             <input type="file" class="form-control-file border" name="userImage">
+            <input type="text" class="form-control-file border" name="previousUserImage" value="<?= $userInfo->image ?>">
         </div>
     </div>
 

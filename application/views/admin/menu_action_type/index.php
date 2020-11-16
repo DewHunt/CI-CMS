@@ -17,9 +17,9 @@
                     <td><?= $actionType->name ?></td>
                     <td><?= $actionType->action_id ?></td>
                     <td>
-                    	<?= $this->LinkModel->Status($actionType->id,$actionType->status) ?>
+                    	<?= $this->Link_model->status($actionType->id,$actionType->status) ?>
 					</td>
-                    <td><?= $this->LinkModel->Action($actionType->id) ?></td>
+                    <td><?= $this->Link_model->action($actionType->id) ?></td>
                 </tr>                                    		
         	<?php endforeach ?>
         </tbody>

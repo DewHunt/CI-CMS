@@ -14,7 +14,7 @@ clASs AdminInformationModel extends CI_Model {
 
     public function GetAdminInformation()
     {
-    	$result = $this->db->query("SELECT * FROM tbl_admin_panel_information LIMIT 1")->row();
+    	$result = $this->db->query("SELECT * FROM tbl_admin_panel_information WHERE id = 0 LIMIT 1")->row();
 
     	return $result;
     }

@@ -4,7 +4,7 @@
 
         $.ajax({
             type: "POST",
-            url: "<?= base_url('menu/maxorder') ?>",
+            url: "<?= base_url('menu/max_order') ?>",
             data:{parentMenuId:parentMenuId},
             success: function(response) {
                 var orderBy = response.orderBy;

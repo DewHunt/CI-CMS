@@ -55,7 +55,7 @@
 			                        <!-- <a style="font-size: 16px;" class="btn btn-outline-info btn-lg" href="<?= base_url($addButtonLink) ?>">
 			                            <i class="fa fa-plus-circle"></i> Add New
 			                        </a> -->
-                                    <?= $this->LinkModel->AddLink(); ?>
+                                    <?= $this->Link_model->add_link(); ?>
     			                </div>
     			            </div>
     			        </div>

@@ -51,9 +51,9 @@
     				    <div class="card">
     				        <div class="custom-card-header">
     				            <div class="row">
-    				                <div class="col-md-6"><h4 class="custom-card-title"><?= $title ?></h4></div>
-    				                <div class="col-md-6 text-right">
-                                        <?= $this->LinkModel->GoBackLink(); ?>
+    				                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"><h4 class="custom-card-title"><?= $title ?></h4></div>
+    				                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+                                        <?= $this->Link_model->go_back_link(); ?>
     				                	<button type="submit" class="btn btn-outline-info btn-lg waves-effect buttonAddEdit" name="buttonAddEdit" value="<?= $buttonName ?>"><i class="fa fa-save"></i> <?= $buttonName ?></button>
     				                </div>
     				            </div>

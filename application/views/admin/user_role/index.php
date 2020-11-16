@@ -20,7 +20,7 @@
                     else
                     {
                         // $menuIds = explode(',',$userRole->permission);
-                        $menus = $this->HelperModel->GetDataByMultipleId('tbl_menus',$userRole->permission);
+                        $menus = $this->Helper_model->get_data_by_multiple_id('tbl_menus',$userRole->permission);
                     }
                 
                     $menuArray = [];
@@ -35,12 +35,8 @@
         			<td><?= $sl++ ?></td>
         			<td><?= $userRole->name ?></td>
                     <td><?= $menuName ?></td>
-        			<td>
-        				<?= $this->LinkModel->Status($userRole->id,$userRole->status); ?>
-        			</td>
-        			<td>
-        				<?= $this->LinkModel->Action($userRole->id); ?>
-        			</td>
+        			<td><?= $this->Link_model->status($userRole->id,$userRole->status); ?></td>
+        			<td><?= $this->Link_model->action($userRole->id); ?></td>
         		</tr>					                		
         	<?php endforeach ?>
         </tbody>

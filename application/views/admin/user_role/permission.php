@@ -1,4 +1,3 @@
-<?php $userRoles = $userRoles; ?>
 <input type="hidden" name="userroleId" value="<?= $userRoles->id ?>">
 
 <div class="row">
@@ -19,13 +18,13 @@
         {
             $checked = "";
         }
-        $countUserMenuAction = $this->HelperModel->GetUserMenuActionCount($rootMenu->id);
+        $countUserMenuAction = $this->Helper_model->get_user_menu_action_count($rootMenu->id);
 	?>
 
    	<?php if ($rootMenu->parent_menu == NULL): ?>
         <?php if ($countUserMenuAction->count == 0): ?>
         	<?php
-        		$parentMenus = $this->HelperModel->GetAllMenus($rootMenu->id);
+        		$parentMenus = $this->Helper_model->get_all_menus($rootMenu->id);
         	?>
 
             <div class="row parentMenuBlock">
@@ -36,7 +35,7 @@
                     <div class="row" style="padding-left: 30px;">
                         <?php foreach ($parentMenus as $parentMenu): ?>
                         	<?php
-                                $userMenuAction = $this->HelperModel->GetUserMenuAction($parentMenu->id);
+                                $userMenuAction = $this->Helper_model->get_user_menu_action($parentMenu->id);
                                 $rolePermission = explode(',', $userRoles->permission);
                                 if (in_array($parentMenu->id, $rolePermission))
                                 {
@@ -70,11 +69,11 @@
                   
                                 <div class="row" style="padding-left: 30px;">
                                 	<?php
-                                		$subMenus = $this->HelperModel->GetAllMenus($parentMenu->id);
+                                		$subMenus = $this->Helper_model->get_all_menus($parentMenu->id);
                                 	?>
                                     <?php foreach ($subMenus as $subMenu): ?>
                                     	<?php
-                                            $userMenuAction = $this->HelperModel->GetUserMenuAction($subMenu->id);
+                                            $userMenuAction = $this->Helper_model->get_user_menu_action($subMenu->id);
                                             $rolePermission = explode(',', $userRoles->permission);
                                             if (in_array($subMenu->id, $rolePermission))
                                             {
@@ -116,7 +115,7 @@
         <?php else: ?>
             <div class="row parentMenuBlock">
             	<?php
-                    $userMenuAction = $this->HelperModel->GetUserMenuAction($rootMenu->id);
+                    $userMenuAction = $this->Helper_model->get_user_menu_action($rootMenu->id);
                     $rolePermission = explode(',', $userRoles->permission);
                     if (in_array($rootMenu->id, $rolePermission))
                     {

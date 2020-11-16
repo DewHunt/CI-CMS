@@ -79,6 +79,11 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => '',
 	'database' => 'fresh_ci_cms',
+
+	// 'username' => 'dewhunt_cicms',
+	// 'password' => 'mKQf1ohkUN6o',
+	// 'database' => 'dewhunt_cicms',
+	
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

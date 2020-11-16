@@ -20,8 +20,8 @@
                     <td><?= $user->email ?></td>
                     <td><?= $user->user_name ?></td>
                     <td><?= $user->roleName ?></td>
-                    <td><?= $this->LinkModel->Status($user->id,$user->status) ?></td>
-                    <td><?= $this->LinkModel->Action($user->id) ?></td>
+                    <td><?= $this->Link_model->status($user->id,$user->status) ?></td>
+                    <td><?= $this->Link_model->action($user->id) ?></td>
                 </tr>                                            
             <?php endforeach ?>
         </tbody>

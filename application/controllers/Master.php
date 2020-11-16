@@ -23,7 +23,7 @@ class Master extends Admin_Controller {
         } else {
             $data = $this->HelperModel->GetAllData($tableName,$fieldName,$order);
 
-            $this->data['title'] = "Menu";
+            $this->data['title'] = "Master";
 
             $this->contentData['data'] = $data;
 
@@ -40,8 +40,8 @@ class Master extends Admin_Controller {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
             redirect(base_url('login'));
         } else {
-            $this->data['title'] = "Add New Menu";
-            $this->data['formLink'] = "menu/save/";
+            $this->data['title'] = "Add New Master";
+            $this->data['formLink'] = "master/save/";
             $this->data['buttonName'] = "Save";
 
             $this->contentData['variableName'] = "";
@@ -66,7 +66,7 @@ class Master extends Admin_Controller {
         	$isExists = $this->HelperModel->CheckDataDuplicityByField($tableName,$fieldName,$data);
 
         	if ($isExists) {
-        		$this->session->set_flashdata('error', 'Data Already Exists.');
+        		$this->session->set_flashdata('error', 'Master Already Exists.');
         		redirect(base_url('master/add'));
         	} else {
                 $data = array(
@@ -87,7 +87,7 @@ class Master extends Admin_Controller {
         } else {
             $dataInfo = $this->HelperModel->GetDataById($tableName,$id);
 
-            $this->data['title'] = "Edit Data";
+            $this->data['title'] = "Edit Master";
             $this->data['formLink'] = "master/update/";
             $this->data['buttonName'] = "Update";
 
@@ -114,7 +114,7 @@ class Master extends Admin_Controller {
         	$isExists = $this->HelperModel->CheckDataDuplicityByFieldAndId($tableName,$fieldName,$data,$id);
 
         	if ($isExists) {
-        		$this->session->set_flashdata('error', 'Data Already Exists.');
+        		$this->session->set_flashdata('error', 'Master Already Exists.');
         		redirect(base_url('master/edit/'.$id));
         	} else {
                 $data = array(
@@ -123,7 +123,7 @@ class Master extends Admin_Controller {
 
                 $this->db->where('id',$id);
                 $this->db->update($tableName, $data);
-        		$this->session->set_flashdata('message', 'Data Updated Successfully.');
+        		$this->session->set_flashdata('message', 'Master Updated Successfully.');
         		redirect(base_url('master'));
         	}
         }

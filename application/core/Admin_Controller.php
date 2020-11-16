@@ -10,14 +10,14 @@ class Admin_Controller extends CI_Controller {
         parent:: __construct();
         // $this->load->library('form_validation');
         // $this->load->helper('settings_helper');
-        $this->load->model('HelperModel');
+        $this->load->model('Helper_model');
         
         if (empty($this->session->userdata('sessionUserInfo'))) {
             redirect(base_url('login'));
         }
     }
 
-    public function UploadImage($inputName,$maxSize,$link,$path)
+    public function upload_image($inputName,$maxSize,$link,$path)
     {           
         if ((int) $_FILES['userImage']["size"] > ($maxSize * 1024)) {
             $this->session->set_flashdata('error', 'Image size can not be more than '.$maxSize.' KB');

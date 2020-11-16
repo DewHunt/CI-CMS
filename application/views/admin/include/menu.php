@@ -1,5 +1,5 @@
 <?php
-    $roleId = $this->session->userdata('sessionUserInfo')['role'];
+    $roleId = $this->session->userdata('sessionUserInfo')->role;
 
     if ($roleId == 2) {
         $permission = "";

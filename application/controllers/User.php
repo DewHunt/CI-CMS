@@ -10,19 +10,20 @@ class User extends Admin_Controller {
         $this->load->library('form_validation');
         // $this->load->helper('settings_helper');
         $this->load->helper('file');
-        $this->load->model('UserModel');
+        $this->load->model('User_model');
+        $this->load->model('Menu_model');
         
         if (empty($this->session->userdata('sessionUserInfo'))) {
             redirect(base_url('login'));
         }
     }
 
-    public function Index()
+    public function index()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->IndexLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
             redirect(base_url('login'));
         } else {
-            $allUsers = $this->UserModel->GetAllUsers();
+            $allUsers = $this->User_model->get_all_users();
 
             $this->data['title'] = "User";
             $this->contentData['allUsers'] = $allUsers;
@@ -33,12 +34,12 @@ class User extends Admin_Controller {
         }
     }
 
-    public function Add()
+    public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
             redirect(base_url('login'));
         } else {
-        	$allUserRoles = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
+        	$allUserRoles = $this->Helper_model->get_all_data('tbl_user_roles','name','ASC');
 
             $this->data['title'] = "Add New User";
             $this->data['formLink'] = "user/save/";
@@ -52,42 +53,47 @@ class User extends Admin_Controller {
         }
     }
 
-    public function Save()
+    public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
             redirect(base_url('login'));
         } else {
-            $imagePath = $this->UploadImage('userImage',500,'user/add','/public/uploads/user_images/');
-            // $this->Test();
-        	// echo "<pre>"; print_r($this->input->post()); exit();
-            echo "<pre>"; print_r($imagePath); exit();
+            // echo "<pre>"; print_r($this->input->post()); exit();
+            $userName = $this->input->post('username');
+            $email = $this->input->post('email');
 
-        	$data = $this->input->post('inputName');
-        	$isExists = $this->HelperModel->CheckDataDuplicityByField($tableName,$fieldName,$data);
+        	$isExists = $this->User_model->check_user_duplicity($userName,$email);
 
         	if ($isExists) {
-        		$this->session->set_flashdata('error', 'Data Already Exists.');
+        		$this->session->set_flashdata('error', 'User Name Or Email Already Exists.');
         		redirect(base_url('user/add'));
         	} else {
+                $imagePath = $this->upload_image('userImage',500,'user/add','/public/uploads/user_images/');
+                // echo "<pre>"; print_r($imagePath); exit();
 
                 $data = array(
-                    'field_name' => trim($this->input->post('inputName')),
+                    'name' => trim($this->input->post('name')),
+                    'email' => $email,
+                    'user_name' => $userName,
+                    'image' => $imagePath,
+                    'role' => trim($this->input->post('role')),
+                    'password' => sha1(trim($this->input->post('password'))),
                 );
 
-                $this->db->insert('tbl_menus', $data);
-        		$this->session->set_flashdata('message', 'Menu Save Successfully.');
+                $this->db->insert('tbl_users', $data);
+        		$this->session->set_flashdata('message', 'User Save Successfully.');
         		redirect(base_url('user'));
         	}
         }
     }
 
-    public function Edit($userId)
+    public function edit($userId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
             redirect(base_url('login'));
         } else {
-            $userInfo = $this->HelperModel->GetDataById('tbl_users',$userId);
-        	$allUserRoles = $this->HelperModel->GetAllData('tbl_user_roles','name','ASC');
+            $userInfo = $this->Helper_model->get_data_by_id('tbl_users',$userId);
+        	$allUserRoles = $this->Helper_model->get_all_data('tbl_user_roles','name','ASC');
 
             $this->data['title'] = "Edit User";
             $this->data['formLink'] = "user/update/";
@@ -102,36 +108,132 @@ class User extends Admin_Controller {
         }
     }
 
-    public function Update()
+    public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
             redirect(base_url('login'));
         } else {
-        	// echo "<pre>";
-        	// print_r($this->input->post()); exit();
+        	// echo "<pre>"; print_r($this->input->post()); exit();
 
-        	$id = $this->input->post('id');
-        	$isExists = $this->HelperModel->CheckDataDuplicityByFieldAndId($tableName,$fieldName,$data,$id);
+        	$id = $this->input->post('userId');
+            $userName = $this->input->post('username');
+            $email = $this->input->post('email');
+
+        	$isExists = $this->User_model->check_user_duplicity_by_id($id,$userName,$email);
 
         	if ($isExists) {
-        		$this->session->set_flashdata('error', 'Data Already Exists.');
+        		$this->session->set_flashdata('error', 'User Name Or Email Already Exists.');
         		redirect(base_url('user/edit/'.$id));
         	} else {
+                $userImage = $_FILES['userImage']['name'];
+
+                if ($userImage) {
+                    $imagePath = $this->upload_image('userImage',500,'user/edit/'.$id,'/public/uploads/user_images/');
+                } else {
+                    $imagePath = $this->input->post('previousUserImage');
+                }
+
                 $data = array(
-                    'field_name' => trim($this->input->post('inputName')),
+                    'name' => trim($this->input->post('name')),
+                    'email' => $email,
+                    'user_name' => $userName,
+                    'image' => $imagePath,
+                    'role' => trim($this->input->post('role')),
+                    'password' => sha1(trim($this->input->post('password'))),
                 );
 
                 $this->db->where('id',$id);
-                $this->db->update($tableName, $data);
-        		$this->session->set_flashdata('message', 'Data Updated Successfully.');
+                $this->db->update('tbl_users', $data);
+        		$this->session->set_flashdata('message', 'User Updated Successfully.');
         		redirect(base_url('user'));
         	}
         }
     }
 
-    public function Delete()
+    public function reject_permission($userId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->DeleteLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->permission_link())) {
+            redirect(base_url('login'));
+        } else {
+            $userMenus = $this->Menu_model->get_all_menu_info();
+            $userInfo = $this->User_model->get_user_info_by_id($userId);
+            $userRoles = $this->Helper_model->get_data_by_id('tbl_user_roles',$userInfo->role);
+
+            // echo "<pre>"; print_r($userRoles); exit();
+
+            $this->data['title'] = "User Permission";
+            $this->data['formLink'] = "user_role/update_permission/";
+            $this->data['buttonName'] = "Update";
+
+            $this->contentData['userMenus'] = $userMenus;
+            $this->contentData['userRoles'] = $userRoles;
+
+            $this->customCss = $this->load->view('admin/user/css', '', TRUE);
+            $this->cardBodyContent = $this->load->view('admin/user/reject_permission', $this->contentData, TRUE);
+            $this->customJs = $this->load->view('admin/user/js', '', TRUE);
+            
+            $this->load->view('admin/master/master_add_edit', $this->data);
+        }
+    }
+
+    public function profile($userId)
+    {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->view_link())) {
+            redirect(base_url('login'));
+        } else {
+            $userInfo = $this->User_model->get_user_info_by_id($userId);
+            // echo "<pre>"; print_r($userInfo); exit();
+
+            $this->data['title'] = "User Profile";
+
+            $this->contentData['title'] = "User Profile";
+            $this->contentData['userInfo'] = $userInfo;
+            // echo "<pre>"; print_r($this->contentData['data']); exit();
+
+            // $this->customCss = $this->load->view('admin/user/css', '', TRUE);
+            $this->cardContent = $this->load->view('admin/user/profile', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master', $this->data);
+        }
+    }
+
+    public function change_password($userId)
+    {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->change_password_link())) {
+            redirect(base_url('login'));
+        } else {
+            $this->data['title'] = "Changer Password";
+            $this->data['formLink'] = "user/update_password/";
+            $this->data['buttonName'] = "Update";
+
+            $this->contentData['userId'] = $userId;
+
+            $this->cardBodyContent = $this->load->view('admin/user/change_password', $this->contentData, TRUE);
+
+            $this->load->view('admin/master/master_add_edit', $this->data);
+        }
+    }
+
+    public function update_password()
+    {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->change_password_link())) {
+            redirect(base_url('login'));
+        } else {
+            $id = $this->input->post('userId');
+            $data = array(
+                'password' => sha1(trim($this->input->post('password'))),
+            );
+
+            $this->db->where('id',$id);
+            $this->db->update('tbl_users', $data);
+            $this->session->set_flashdata('message', 'Password Updated Successfully.');
+            redirect(base_url('user'));
+        }
+    }
+
+    public function delete()
+    {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->delete_link())) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');
@@ -139,13 +241,13 @@ class User extends Admin_Controller {
         }
     }
 
-    public function Status()
+    public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->StatusLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->status_link())) {
             redirect(base_url('login'));
         } else {
             $id = $this->input->post('id');
-            $this->HelperModel->UpdateStatus('tbl_users',$id);
+            $this->Helper_model->update_status('tbl_users',$id);
         }
     }
 }

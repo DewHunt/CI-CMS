@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2020 at 11:06 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Nov 16, 2020 at 09:56 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -35,16 +34,16 @@ CREATE TABLE `tbl_admin_panel_information` (
   `website_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `developed_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `developer_website_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `logo_one` text COLLATE utf8mb4_unicode_ci,
+  `logo_one` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `logo_one_width` int(11) DEFAULT NULL,
   `logo_one_height` int(11) DEFAULT NULL,
-  `logo_two` text COLLATE utf8mb4_unicode_ci,
+  `logo_two` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `logo_two_width` int(11) DEFAULT NULL,
   `logo_two_height` int(11) DEFAULT NULL,
-  `fav_icon` text COLLATE utf8mb4_unicode_ci,
+  `fav_icon` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fav_icon_width` int(11) DEFAULT NULL,
   `fav_icon_height` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -70,9 +69,9 @@ CREATE TABLE `tbl_frontend_menu` (
   `menu_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `menu_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `menu_status` tinyint(4) NOT NULL DEFAULT '1',
-  `footer_menu_status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `menu_status` tinyint(4) NOT NULL DEFAULT 1,
+  `footer_menu_status` tinyint(4) NOT NULL DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -98,7 +97,7 @@ CREATE TABLE `tbl_menus` (
   `id` int(10) UNSIGNED NOT NULL,
   `parent_menu` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `menu_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `menu_link` text COLLATE utf8mb4_unicode_ci,
+  `menu_link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `menu_icon` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
   `status` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '1',
@@ -113,9 +112,9 @@ CREATE TABLE `tbl_menus` (
 INSERT INTO `tbl_menus` (`id`, `parent_menu`, `menu_name`, `menu_link`, `menu_icon`, `order_by`, `status`, `created_at`, `updated_at`) VALUES
 (1, NULL, 'Dashboard', 'home', 'ti-layout-grid2', 1, '1', '2020-07-08 23:22:23', '2020-09-11 02:38:34'),
 (2, '13', 'Menu', 'menu', 'ti-settings', 1, '1', NULL, NULL),
-(3, '13', 'Users Role', 'userrole', 'ti-settings', 4, '1', '2020-03-03 13:48:57', '2020-03-15 06:02:37'),
-(4, '13', 'Menu Action Type', 'menuactiontype', 'ti-settings', 2, '1', NULL, NULL),
-(5, '13', 'User', 'user', 'ti-settings', 3, '1', '2020-03-14 02:06:15', '2020-03-15 06:02:33'),
+(3, '13', 'Users Role', 'user_role', 'ti-settings', 3, '1', '2020-03-03 13:48:57', '2020-03-15 06:02:37'),
+(4, '13', 'Menu Action Type', 'menu_action_type', 'ti-settings', 2, '1', NULL, NULL),
+(5, '13', 'User', 'user', 'ti-settings', 4, '1', '2020-03-14 02:06:15', '2020-03-15 06:02:33'),
 (6, NULL, 'Front-End Management', '', 'ti-layout-grid2', 3, '1', '2020-04-16 09:54:08', '2020-07-08 23:25:14'),
 (7, '6', 'Website Information', 'websiteInformation.index', 'ti-settings', 1, '1', '2020-04-16 10:43:15', '2020-04-16 10:43:15'),
 (8, '6', 'Menus', 'frontEndMenu.index', 'ti-settings', 2, '1', '2020-04-18 08:17:03', '2020-04-18 08:17:03'),
@@ -146,7 +145,7 @@ CREATE TABLE `tbl_menu_actions` (
   `action_name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `action_link` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT '1',
+  `status` int(11) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -159,22 +158,22 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (2, 2, 1, 'Add New', 'menu/add/', 1, 1, NULL, NULL),
 (3, 2, 2, 'Edit', 'menu/edit/', 2, 1, NULL, NULL),
 (4, 2, 3, 'Status', 'menu/status/', 3, 1, NULL, NULL),
-(5, 2, 8, 'View Menu Action', 'menuaction/index/', 4, 1, NULL, NULL),
+(5, 2, 8, 'View Menu Action', 'menu_action/index/', 4, 1, NULL, NULL),
 (6, 2, 4, 'Delete', 'menu/delete/', 5, 1, NULL, NULL),
-(7, 4, 1, 'Add New', 'menuactiontype/add/', 1, 1, NULL, NULL),
-(8, 4, 2, 'Edit', 'menuactiontype/edit/', 2, 1, NULL, NULL),
-(9, 4, 3, 'Status', 'menuactiontype/status/', 3, 1, NULL, NULL),
-(10, 4, 4, 'Delete', 'menuactiontype/delete/', 4, 1, NULL, NULL),
-(11, 3, 1, 'Add New', 'userrole/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
-(12, 3, 2, 'Edit', 'userrole/edit/', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
-(13, 3, 5, 'Permission', 'userrole/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
-(14, 3, 3, 'Status', 'userrole/status/', 4, 1, '2020-03-07 00:18:08', '2020-03-07 00:18:08'),
-(15, 3, 4, 'Delete', 'userrole/delete/', 5, 1, '2020-03-07 00:18:22', '2020-03-07 00:18:22'),
+(7, 4, 1, 'Add New', 'menu_action_type/add/', 1, 1, NULL, NULL),
+(8, 4, 2, 'Edit', 'menu_action_type/edit/', 2, 1, NULL, NULL),
+(9, 4, 3, 'Status', 'menu_action_type/status/', 3, 1, NULL, NULL),
+(10, 4, 4, 'Delete', 'menu_action_type/delete/', 4, 1, NULL, NULL),
+(11, 3, 1, 'Add New', 'user_role/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
+(12, 3, 2, 'Edit', 'user_role/edit/', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
+(13, 3, 5, 'Permission', 'user_role/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
+(14, 3, 3, 'Status', 'user_role/status/', 4, 1, '2020-03-07 00:18:08', '2020-03-07 00:18:08'),
+(15, 3, 4, 'Delete', 'user_role/delete/', 5, 1, '2020-03-07 00:18:22', '2020-03-07 00:18:22'),
 (21, 5, 1, 'Add New', 'user/add/', 1, 1, '2020-03-14 02:06:39', '2020-03-14 02:06:39'),
 (22, 5, 2, 'Edit', 'user/edit/', 2, 1, '2020-03-14 02:06:53', '2020-03-14 02:06:53'),
-(23, 5, 8, 'View Profile', 'user/profile/', 3, 1, '2020-03-14 02:07:32', '2020-03-14 02:07:32'),
-(24, 5, 6, 'Change Password', 'user/changePassword/', 4, 1, '2020-03-14 02:07:57', '2020-03-14 02:07:57'),
-(25, 5, 3, 'Status', 'user/status/', 5, 1, '2020-03-14 02:08:23', '2020-03-14 02:08:23'),
+(23, 5, 8, 'View Profile', 'user/profile/', 4, 1, '2020-03-14 02:07:32', '2020-03-14 02:07:32'),
+(24, 5, 6, 'Change Password', 'user/change_password/', 5, 1, '2020-03-14 02:07:57', '2020-03-14 02:07:57'),
+(25, 5, 3, 'Status', 'user/status/', 7, 1, '2020-03-14 02:08:23', '2020-03-14 02:08:23'),
 (26, 5, 4, 'Delete', 'user/delete/', 6, 1, '2020-03-14 02:08:35', '2020-03-14 02:08:35'),
 (28, 7, 1, 'Add', 'websiteInformation.add', 1, 1, '2020-04-16 11:50:12', '2020-09-11 02:52:22'),
 (29, 7, 2, 'Edit', 'websiteInformation.edit', 2, 1, '2020-04-16 11:50:28', '2020-04-16 11:50:28'),
@@ -200,7 +199,8 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (54, 16, 1, 'Add', 'nosubmenu/add/', 1, 1, NULL, NULL),
 (55, 16, 2, 'Edit', 'nosubmenu/edit/', 2, 1, NULL, NULL),
 (56, 19, 1, 'Add', 'childmenu/add', 1, 1, NULL, NULL),
-(57, 19, 2, 'Edit', 'childmenu/edit/', 2, 1, NULL, NULL);
+(57, 19, 2, 'Edit', 'childmenu/edit/', 2, 1, NULL, NULL),
+(58, 5, 5, 'Reject Permission', 'user/reject_permission/', 3, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ CREATE TABLE `tbl_menu_action_type` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `action_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT '1',
+  `status` tinyint(4) DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -244,7 +244,7 @@ CREATE TABLE `tbl_pages` (
   `id` int(11) NOT NULL,
   `frontend_menu_id` int(11) DEFAULT NULL,
   `page_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) DEFAULT '1',
+  `status` tinyint(4) DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -282,22 +282,22 @@ CREATE TABLE `tbl_posts` (
   `id` int(11) NOT NULL,
   `page_id` int(11) DEFAULT NULL,
   `post_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci,
-  `inner_title` text COLLATE utf8mb4_unicode_ci,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `url_link` text COLLATE utf8mb4_unicode_ci,
-  `icon` text COLLATE utf8mb4_unicode_ci,
-  `image` text COLLATE utf8mb4_unicode_ci,
+  `title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `inner_title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url_link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
-  `inner_image` text COLLATE utf8mb4_unicode_ci,
+  `inner_image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `inner_width` int(11) DEFAULT NULL,
   `inner_height` int(11) DEFAULT NULL,
-  `meta_title` text COLLATE utf8mb4_unicode_ci,
-  `meta_keyword` text COLLATE utf8mb4_unicode_ci,
-  `meta_description` text COLLATE utf8mb4_unicode_ci,
+  `meta_title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keyword` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -324,16 +324,16 @@ CREATE TABLE `tbl_sliders` (
   `first_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `second_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `third_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `image` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
-  `link` text COLLATE utf8mb4_unicode_ci,
-  `meta_title` text COLLATE utf8mb4_unicode_ci,
-  `meta_keyword` text COLLATE utf8mb4_unicode_ci,
-  `meta_description` text COLLATE utf8mb4_unicode_ci,
+  `link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keyword` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -355,9 +355,9 @@ INSERT INTO `tbl_sliders` (`id`, `first_title`, `second_title`, `third_title`, `
 
 CREATE TABLE `tbl_social_links` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci,
-  `icon` text COLLATE utf8mb4_unicode_ci,
-  `link` text COLLATE utf8mb4_unicode_ci,
+  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `link` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -388,11 +388,11 @@ CREATE TABLE `tbl_users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_name` text COLLATE utf8mb4_unicode_ci,
+  `user_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
+  `status` int(11) NOT NULL DEFAULT 1,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -404,7 +404,8 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `image`, `role`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (4, 'Admin', 'admin@gmail.com', 'Admin', '/public/uploads/user_images/avatar7_20165942041.png', 2, '8cb2237d0679ca88db6464eac60da96345513964', 1, 'HftBsS0WaFhNaeki9GEnbTOdo99h14G9dS1WtBq9AJJkzUuSyNKsUxMufhEx', '2019-04-17 01:04:35', '2020-09-11 03:23:42'),
-(7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', '/public/uploads/user_images/images_21444773304.jpg', 3, '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40');
+(7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', '/public/uploads/user_images/images_21444773304.jpg', 3, '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40'),
+(11, 'Shamim', 'shamim@gmail.com', 'shamim', '/public/uploads/user_images/img00.jpg', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -414,13 +415,13 @@ INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `image`, `role`, `p
 
 CREATE TABLE `tbl_user_roles` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci,
+  `name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent_role` int(11) DEFAULT NULL,
   `level` int(11) DEFAULT NULL,
   `order_by` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT '1',
-  `permission` text COLLATE utf8mb4_unicode_ci,
-  `action_permission` text COLLATE utf8mb4_unicode_ci,
+  `status` int(11) DEFAULT 1,
+  `permission` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `action_permission` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -430,8 +431,8 @@ CREATE TABLE `tbl_user_roles` (
 --
 
 INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `order_by`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
-(2, 'Super Admin', NULL, 1, 0, 1, '1,6,7,8,10,11,12,24,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,25,26,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
-(3, 'Admin', 2, 1, NULL, 1, '1,13,3', '12,14', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
+(2, 'Super Admin', NULL, 1, 0, 1, '1,6,7,8,10,11,12,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,26,25,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
+(3, 'Admin', 2, 1, NULL, 1, '1,16', '54,55,24', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
 (4, 'User', NULL, 1, NULL, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23'),
 (5, 'Manager', NULL, NULL, 4, 1, '1,6,7', '28,29', NULL, NULL);
 
@@ -452,13 +453,13 @@ CREATE TABLE `tbl_website_information` (
   `phone_one` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone_two` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone_three` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `logo_one` text COLLATE utf8mb4_unicode_ci,
-  `logo_two` text COLLATE utf8mb4_unicode_ci,
-  `fav_icon` text COLLATE utf8mb4_unicode_ci,
-  `meta_title` text COLLATE utf8mb4_unicode_ci,
-  `meta_keyword` text COLLATE utf8mb4_unicode_ci,
-  `meta_description` text COLLATE utf8mb4_unicode_ci,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `logo_one` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo_two` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fav_icon` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_title` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keyword` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
@@ -581,7 +582,7 @@ ALTER TABLE `tbl_menus`
 -- AUTO_INCREMENT for table `tbl_menu_actions`
 --
 ALTER TABLE `tbl_menu_actions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `tbl_menu_action_type`
@@ -617,7 +618,7 @@ ALTER TABLE `tbl_social_links`
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_user_roles`

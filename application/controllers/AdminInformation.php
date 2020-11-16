@@ -42,15 +42,11 @@ class AdminInformation extends Admin_Controller {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
             redirect(base_url('login'));
         } else {
-            $this->data['title'] = "Add New Menu";
-            $this->data['formLink'] = "menu/save/";
+            $this->data['title'] = "Add Admin Information";
+            $this->data['formLink'] = "admininformation/save/";
             $this->data['buttonName'] = "Save";
 
-            $this->contentData['variableName'] = "";
-
-            $this->customCss = $this->load->view('admin/folder_name/css', '', TRUE);
-            $this->cardBodyContent = $this->load->view('admin/folder_name/add', $this->contentData, TRUE);
-            $this->customJs = $this->load->view('admin/folder_name/js', '', TRUE);
+            $this->cardBodyContent = $this->load->view('admin/admin_information/add', '', TRUE);
 
             $this->load->view('admin/master/master_add_edit', $this->data);
         }
@@ -61,8 +57,7 @@ class AdminInformation extends Admin_Controller {
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
             redirect(base_url('login'));
         } else {
-        	// echo "<pre>";
-        	// print_r($this->input->post()); exit();
+        	echo "<pre>"; print_r($this->input->post()); exit();
 
         	$data = $this->input->post('inputName');
         	$isExists = $this->HelperModel->CheckDataDuplicityByField($tableName,$fieldName,$data);

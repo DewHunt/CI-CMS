@@ -9,19 +9,19 @@ class Menu extends Admin_Controller {
         parent:: __construct();
         $this->load->library('form_validation');
         // $this->load->helper('settings_helper');
-        $this->load->model('MenuModel');
+        $this->load->model('Menu_model');
         
         if (empty($this->session->userdata('sessionUserInfo'))) {
             redirect(base_url('login'));
         }
     }
 
-    public function Index()
+    public function index()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->IndexLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
             redirect(base_url('login'));
         } else {
-            $menus = $this->MenuModel->GetAllMenuList();
+            $menus = $this->Menu_model->get_all_menu_list();
 
             $this->data['title'] = "Menu";
             $this->contentData['menus'] = $menus;
@@ -32,15 +32,15 @@ class Menu extends Admin_Controller {
         }        
     }
 
-    public function Add()
+    public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
             redirect(base_url('login'));
         } else {
-            // echo $this->LinkModel->AddLink(); exit();
-            $menus = $this->MenuModel->GetAllMenuInfo();
+            // echo $this->Link_model->AddLink(); exit();
+            $menus = $this->Menu_model->get_all_menu_info();
 
-            $parentMenuMaxOrder = $this->MenuModel->GetParentMenuMaxOrder();
+            $parentMenuMaxOrder = $this->Menu_model->get_parent_menu_max_order();
 
             if ($parentMenuMaxOrder) {
                 $orderBy = $parentMenuMaxOrder->maxOrder + 1;
@@ -62,9 +62,9 @@ class Menu extends Admin_Controller {
         }
     }
 
-    public function Save()
+    public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>";
@@ -75,7 +75,7 @@ class Menu extends Admin_Controller {
         	if ($menuLink == "") {
         		$isExists = "";
         	} else {
-        		$isExists = $this->HelperModel->CheckDataDuplicityByField('tbl_menus','menu_link',$menuLink);
+        		$isExists = $this->Helper_model->check_data_duplicity_by_field('tbl_menus','menu_link',$menuLink);
         	}    	
 
         	if ($isExists) {
@@ -103,13 +103,13 @@ class Menu extends Admin_Controller {
         }
     }
 
-    public function Edit($menuId)
+    public function edit($menuId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
             redirect(base_url('login'));
         } else {
-            $menus = $this->MenuModel->GetAllMenuInfo();
-            $menuInfo = $this->MenuModel->GetMenuInfoById($menuId);
+            $menus = $this->Menu_model->get_all_menu_info();
+            $menuInfo = $this->Menu_model->get_menu_info_by_id($menuId);
 
             $this->data['title'] = "Edit Menu";
             $this->data['formLink'] = "menu/update/";
@@ -125,9 +125,9 @@ class Menu extends Admin_Controller {
         }
     }
 
-    public function Update()
+    public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>";
@@ -139,7 +139,7 @@ class Menu extends Admin_Controller {
         	if ($menuLink == "") {
         		$isExists == "";
         	} else {
-        		$isExists = $this->HelperModel->CheckDataDuplicityByFieldAndId('tbl_menus','menu_link',$menuLink,$id);
+        		$isExists = $this->Helper_model->check_data_duplicity_by_field_and_id('tbl_menus','menu_link',$menuLink,$id);
         	}
 
         	if ($isExists) {
@@ -168,9 +168,9 @@ class Menu extends Admin_Controller {
         }
     }
 
-    public function Delete()
+    public function delete()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->DeleteLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->delete_link())) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');
@@ -179,24 +179,24 @@ class Menu extends Admin_Controller {
         }
     }
 
-    public function Status()
+    public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->StatusLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->status_link())) {
             redirect(base_url('login'));
         } else {
             $id = $this->input->post('id');
-            $this->HelperModel->UpdateStatus('tbl_menus',$id);
+            $this->Helper_model->update_status('tbl_menus',$id);
         }
     }
 
-    public function MaxOrder()
+    public function max_order()
     {
     	$parentMenuId = $this->input->post('parentMenuId');
 
     	if ($parentMenuId != "") {
-            $menuMaxOrder = $this->MenuModel->GetMaxOrder($parentMenuId);
+            $menuMaxOrder = $this->Menu_model->GetMaxOrder($parentMenuId);
     	} else {
-        	$menuMaxOrder = $this->MenuModel->GetParentMenuMaxOrder();
+        	$menuMaxOrder = $this->Menu_model->GetParentMenuMaxOrder();
     	}
 
         if ($menuMaxOrder) {

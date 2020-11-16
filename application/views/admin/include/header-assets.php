@@ -57,3 +57,7 @@
 
 	    <!-- Custom Style For CSS -->
 	    <link href="<?= base_url('public/elite-admin/dist/css/custom_style.css') ?>" rel="stylesheet">
+
+	    <style type="text/css">
+	    	.mendatory { color: red; }
+	    </style>

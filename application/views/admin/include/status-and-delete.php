@@ -22,7 +22,7 @@
                         if (isConfirm) {
                             $.ajax({
                                 type: "POST",
-                                url : "<?= $this->LinkModel->DeleteLink(); ?>",
+                                url : "<?= $this->Link_model->delete_link(); ?>",
                                 data : {id:id},
                                
                                 success: function(response) {
@@ -68,7 +68,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: "post",
-                    url: "<?= $this->LinkModel->StatusLink(); ?>",
+                    url: "<?= $this->Link_model->status_link(); ?>",
                     data: {id:id},
                     success: function(response) {
                         swal({

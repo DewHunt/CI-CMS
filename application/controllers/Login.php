@@ -6,21 +6,10 @@ class Login extends CI_Controller {
 
     public function __construct() {
         parent:: __construct();
-        // $this->load->library('form_validation');
-        // $this->load->helper('settings_helper');
-        // $this->load->model('Company_Model');
-        $this->load->model('UserModel');
-        // $this->load->model('Login_log_details_Model');
-        // $this->load->model('Notification_Model');
-        // $this->load->model('Notification_assign_Model');
-        // $this->load->model('Weekend_settings_Model');
-        // $this->load->model('Calendar_Model');
-        // $this->load->model('Events_Model');
-        // $this->load->model('Product_Model');
-        // $this->load->model('Product_reorder_level_Model');
+        $this->load->model('User_model');
     }
 
-    public function Index() {
+    public function index() {
         if (!empty($this->session->userdata('sessionUserInfo'))) {
             redirect(base_url());
         } else {
@@ -29,23 +18,23 @@ class Login extends CI_Controller {
         }
     }
 
-    public function LoginAction()
+    public function login_action()
     {
     	$userNameOrEmail = $this->input->post('userNameOrEmail');
     	$password = sha1(trim($this->input->post('password')));
 
-    	$loginStatus = $this->UserModel->getUserInfoByUserNameOrEmailAndPassword($userNameOrEmail,$password);
+    	$loginStatus = $this->User_model->get_user_info_by_user_name_or_email_and_password($userNameOrEmail,$password);
 
     	if (!empty($loginStatus)) {
-    		$userInformationData = array(
-    			'id' => $loginStatus->id,
-    			'name' => $loginStatus->name,
-    			'email' => $loginStatus->email,
-    			'user_name' => $loginStatus->user_name,
-    			'role' => $loginStatus->role,
-    			'status' => $loginStatus->status,
-    		);
-    		$this->session->set_userdata('sessionUserInfo',$userInformationData);
+    		// $userInformationData = array(
+    		// 	'id' => $loginStatus->id,
+    		// 	'name' => $loginStatus->name,
+    		// 	'email' => $loginStatus->email,
+    		// 	'user_name' => $loginStatus->user_name,
+    		// 	'role' => $loginStatus->role,
+    		// 	'status' => $loginStatus->status,
+    		// );
+    		$this->session->set_userdata('sessionUserInfo',$loginStatus);
 
     		redirect(base_url());
     	} else {
@@ -53,7 +42,7 @@ class Login extends CI_Controller {
     	}    	
     }
 
-    public function Logout() {
+    public function logout() {
         if (!empty($this->session->userdata('sessionUserInfo'))) {
             $this->session->sess_destroy();
             //$this->get_all_session_clear();
