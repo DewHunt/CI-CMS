@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2020 at 09:56 PM
+-- Generation Time: Nov 21, 2020 at 08:52 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -166,7 +166,7 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (10, 4, 4, 'Delete', 'menu_action_type/delete/', 4, 1, NULL, NULL),
 (11, 3, 1, 'Add New', 'user_role/add/', 1, 1, '2020-03-06 23:37:18', '2020-03-06 23:37:18'),
 (12, 3, 2, 'Edit', 'user_role/edit/', 2, 1, '2020-03-07 00:16:00', '2020-03-07 00:16:00'),
-(13, 3, 5, 'Permission', 'user_role/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
+(13, 3, 5, 'User Role Menu Permission', 'user_role/permission/', 3, 1, '2020-03-07 00:17:25', '2020-03-07 00:17:25'),
 (14, 3, 3, 'Status', 'user_role/status/', 4, 1, '2020-03-07 00:18:08', '2020-03-07 00:18:08'),
 (15, 3, 4, 'Delete', 'user_role/delete/', 5, 1, '2020-03-07 00:18:22', '2020-03-07 00:18:22'),
 (21, 5, 1, 'Add New', 'user/add/', 1, 1, '2020-03-14 02:06:39', '2020-03-14 02:06:39'),
@@ -200,7 +200,7 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (55, 16, 2, 'Edit', 'nosubmenu/edit/', 2, 1, NULL, NULL),
 (56, 19, 1, 'Add', 'childmenu/add', 1, 1, NULL, NULL),
 (57, 19, 2, 'Edit', 'childmenu/edit/', 2, 1, NULL, NULL),
-(58, 5, 5, 'Reject Permission', 'user/reject_permission/', 3, 1, NULL, NULL);
+(58, 5, 5, 'User Menu Permission', 'user/permission/', 3, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -391,6 +391,8 @@ CREATE TABLE `tbl_users` (
   `user_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` int(11) DEFAULT NULL,
+  `permission` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action_permission` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -402,10 +404,10 @@ CREATE TABLE `tbl_users` (
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `image`, `role`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'Admin', 'admin@gmail.com', 'Admin', '/public/uploads/user_images/avatar7_20165942041.png', 2, '8cb2237d0679ca88db6464eac60da96345513964', 1, 'HftBsS0WaFhNaeki9GEnbTOdo99h14G9dS1WtBq9AJJkzUuSyNKsUxMufhEx', '2019-04-17 01:04:35', '2020-09-11 03:23:42'),
-(7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', '/public/uploads/user_images/images_21444773304.jpg', 3, '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40'),
-(11, 'Shamim', 'shamim@gmail.com', 'shamim', '/public/uploads/user_images/img00.jpg', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, NULL, NULL, NULL);
+INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `image`, `role`, `permission`, `action_permission`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, 'Admin', 'admin@gmail.com', 'Admin', '/public/uploads/user_images/avatar7_20165942041.png', 2, '', '', '8cb2237d0679ca88db6464eac60da96345513964', 1, 'HftBsS0WaFhNaeki9GEnbTOdo99h14G9dS1WtBq9AJJkzUuSyNKsUxMufhEx', '2019-04-17 01:04:35', '2020-09-11 03:23:42'),
+(7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', '/public/uploads/user_images/images_21444773304.jpg', 3, '1,16', '54,55', '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40'),
+(11, 'Shamim', 'shamim@gmail.com', 'shamim', '/public/uploads/user_images/img00.jpg', 3, '1,13,5', '22,23,24', '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -431,8 +433,8 @@ CREATE TABLE `tbl_user_roles` (
 --
 
 INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `order_by`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
-(2, 'Super Admin', NULL, 1, 0, 1, '1,6,7,8,10,11,12,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,23,24,26,25,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
-(3, 'Admin', 2, 1, NULL, 1, '1,16', '54,55,24', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
+(2, 'Super Admin', NULL, 1, 0, 1, '1,6,7,8,10,11,12,17,18,19,20,21,22,23,16,13,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,56,57,54,55,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,58,23,24,26,25,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
+(3, 'Admin', 2, 1, NULL, 1, '1,16,13,2,3,4,5,15', '54,55,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,58,23,24,26,25,52,53', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
 (4, 'User', NULL, 1, NULL, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23'),
 (5, 'Manager', NULL, NULL, 4, 1, '1,6,7', '28,29', NULL, NULL);
 
@@ -624,7 +626,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_user_roles`
 --
 ALTER TABLE `tbl_user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_website_information`

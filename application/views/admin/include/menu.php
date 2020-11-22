@@ -1,17 +1,21 @@
 <?php
     $roleId = $this->session->userdata('sessionUserInfo')->role;
+    $userId = (int) $this->session->userdata('sessionUserInfo')->id;
+    // echo "<pre>"; print_r($this->session->userdata('sessionUserInfo')); exit();
 
     if ($roleId == 2) {
         $permission = "";
     } else {
-        $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
-        $permission = "id IN ($userRole->permission) AND";
+        $userMenuLists = $this->db->query("SELECT * FROM tbl_users WHERE id = $userId")->row();
+        if (empty($userMenuLists->permission)) {
+	        $userMenuLists = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
+        }
+        $permission = "id IN ($userMenuLists->permission) AND";
     }
 
     $rootMenus = $this->db->query("SELECT * FROM tbl_menus WHERE $permission parent_menu IS NULL AND status = 1 ORDER BY order_by ASC")->result();
 
-    // echo "<pre>";
-    // print_r($userRole); exit();
+    // echo "<pre>"; print_r($permission); exit();
 ?>
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->

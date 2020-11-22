@@ -13,19 +13,15 @@
         	<?php $sl = 1; ?>
         	<?php foreach ($allUserRole as $userRole): ?>
                 <?php
-                    if ($userRole->permission == "")
-                    {
+                    if ($userRole->permission == "") {
                         $menus = [];
-                    }
-                    else
-                    {
+                    } else {
                         // $menuIds = explode(',',$userRole->permission);
                         $menus = $this->Helper_model->get_data_by_multiple_id('tbl_menus',$userRole->permission);
                     }
                 
                     $menuArray = [];
-                    foreach ($menus as $menu)
-                    {
+                    foreach ($menus as $menu) {
                         array_push($menuArray, $menu->menu_name);
                     }
 

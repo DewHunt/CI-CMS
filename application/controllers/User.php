@@ -20,6 +20,12 @@ class User extends Admin_Controller {
 
     public function index()
     {
+        // if ($this->Link_model->link_permission('user/add/') === true) {
+        //     echo "TRUE";
+        // } else {
+        //     echo "FALSE";
+        // }
+        // exit();
         if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
             redirect(base_url('login'));
         } else {
@@ -36,7 +42,7 @@ class User extends Admin_Controller {
 
     public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/add/') === false) {
             redirect(base_url('login'));
         } else {
         	$allUserRoles = $this->Helper_model->get_all_data('tbl_user_roles','name','ASC');
@@ -55,7 +61,7 @@ class User extends Admin_Controller {
 
     public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/add/') === false) {
             redirect(base_url('login'));
         } else {
             // echo "<pre>"; print_r($this->input->post()); exit();
@@ -89,7 +95,7 @@ class User extends Admin_Controller {
 
     public function edit($userId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/edit/') === false) {
             redirect(base_url('login'));
         } else {
             $userInfo = $this->Helper_model->get_data_by_id('tbl_users',$userId);
@@ -110,7 +116,7 @@ class User extends Admin_Controller {
 
     public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/edit/') === true) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>"; print_r($this->input->post()); exit();
@@ -150,35 +156,70 @@ class User extends Admin_Controller {
         }
     }
 
-    public function reject_permission($userId)
+    public function permission($userId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->permission_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/permission/') === false) {
             redirect(base_url('login'));
         } else {
             $userMenus = $this->Menu_model->get_all_menu_info();
             $userInfo = $this->User_model->get_user_info_by_id($userId);
             $userRoles = $this->Helper_model->get_data_by_id('tbl_user_roles',$userInfo->role);
 
-            // echo "<pre>"; print_r($userRoles); exit();
+            // echo "<pre>"; print_r($userInfo); exit();
 
-            $this->data['title'] = "User Permission";
-            $this->data['formLink'] = "user_role/update_permission/";
+            $this->data['title'] = "User Menu Permission (".$userInfo->user_name.")";
+            $this->data['formLink'] = "user/update_permission/";
             $this->data['buttonName'] = "Update";
 
             $this->contentData['userMenus'] = $userMenus;
+            $this->contentData['userInfo'] = $userInfo;
             $this->contentData['userRoles'] = $userRoles;
 
             $this->customCss = $this->load->view('admin/user/css', '', TRUE);
-            $this->cardBodyContent = $this->load->view('admin/user/reject_permission', $this->contentData, TRUE);
+            $this->cardBodyContent = $this->load->view('admin/user/permission', $this->contentData, TRUE);
             $this->customJs = $this->load->view('admin/user/js', '', TRUE);
             
             $this->load->view('admin/master/master_add_edit', $this->data);
         }
     }
 
+    public function update_permission()
+    {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/permission/') === false) {
+            redirect(base_url('login'));
+        } else {
+            // echo "<pre>"; print_r($this->input->post()); exit();
+
+            $userRoleId = $this->input->post('userroleId');
+            $userId = $this->input->post('userId');
+
+            if ($this->input->post('usermenu') == "") {
+                $userMenus = NULL;
+            } else {
+                $userMenus = implode(',',$this->input->post('usermenu'));
+            }
+
+            if ($this->input->post('usermenuAction') == "") {
+                $userMenuActions = NULL;
+            } else {
+                $userMenuActions = implode(',',$this->input->post('usermenuAction'));
+            }           
+
+            $data = array(
+                'permission' => $userMenus,                     
+                'action_permission' => $userMenuActions, 
+            );
+
+            $this->db->where('id',$userId);
+            $this->db->update('tbl_users', $data);
+            $this->session->set_flashdata('message', 'User Menu Permission Updated Successfully.');
+            redirect(base_url('user'));
+        }
+    }
+
     public function profile($userId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->view_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/profile/') === false) {
             redirect(base_url('login'));
         } else {
             $userInfo = $this->User_model->get_user_info_by_id($userId);
@@ -199,7 +240,7 @@ class User extends Admin_Controller {
 
     public function change_password($userId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->change_password_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/change_password/') === false) {
             redirect(base_url('login'));
         } else {
             $this->data['title'] = "Changer Password";
@@ -216,7 +257,7 @@ class User extends Admin_Controller {
 
     public function update_password()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->change_password_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/update_password/') === false) {
             redirect(base_url('login'));
         } else {
             $id = $this->input->post('userId');
@@ -233,7 +274,7 @@ class User extends Admin_Controller {
 
     public function delete()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->delete_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/delete/') === false) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');
@@ -243,7 +284,7 @@ class User extends Admin_Controller {
 
     public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->status_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/status/') === false) {
             redirect(base_url('login'));
         } else {
             $id = $this->input->post('id');

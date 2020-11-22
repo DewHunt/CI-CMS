@@ -1,7 +1,7 @@
  Options +FollowSymLinks
   RewriteEngine On
-  Header set Access-Control-Allow-Origin *
   RewriteBase /fresh_ci_cms
+  Header set Access-Control-Allow-Origin *
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ index.php?/$1 [L]

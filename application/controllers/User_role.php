@@ -136,7 +136,7 @@ class User_role extends Admin_Controller {
 
         	// echo "<pre>"; print_r($userRoles); exit();
 
-            $this->data['title'] = "User Permission";
+            $this->data['title'] = "User Role Menu Permission (".$userRoles->name.")";
             $this->data['formLink'] = "user_role/update_permission/";
             $this->data['buttonName'] = "Update";
 
@@ -179,7 +179,7 @@ class User_role extends Admin_Controller {
 
             $this->db->where('id',$userRoleId);
             $this->db->update('tbl_user_roles', $data);
-    		$this->session->set_flashdata('message', 'User Role Permission Updated Successfully.');
+    		$this->session->set_flashdata('message', 'User Role Menu Permission Updated Successfully.');
     		redirect(base_url('user_role'));
         }
     }

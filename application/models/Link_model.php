@@ -4,23 +4,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Link_model extends CI_Model {
 
+
     public function __construct() {
         parent::__construct();
         $this->load->database();
     }
 
-    public function role_permission($roleId)
+    public function role_permission()
     {
-        if ($roleId != 2) {
-            $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
+        $roleId = $this->session->userdata('sessionUserInfo')->role;
+        $userId = (int) $this->session->userdata('sessionUserInfo')->id;
+    	$rolePermission = [];
 
-            if ($userRole) {
-                $rolePermission = explode(',', $userRole->action_permission);
-            } else {
-                $rolePermission = [];
-            }            
-        } else {
-            $rolePermission = [];
+        if ($roleId == 2) {
+            $userMenuLists = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();           
+        }
+        else {
+            $userMenuLists = $this->db->query("SELECT * FROM tbl_users WHERE id = $userId")->row();       	
+        }
+
+        if ($userMenuLists) {
+            $rolePermission = explode(',', $userMenuLists->action_permission);
         }
         return $rolePermission;
     }
@@ -28,6 +32,7 @@ class Link_model extends CI_Model {
     public function menu_action()
     {
         $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+    	
         $menu = $this->db->query("SELECT * FROM tbl_menus WHERE menu_link = '$routeName'")->row();
         $menuAction = $this->db->query("SELECT * FROM tbl_menu_actions WHERE parent_menu_id = '$menu->id' AND status = 1 ORDER BY order_by")->result();
 
@@ -43,19 +48,39 @@ class Link_model extends CI_Model {
         return $dataLink;
     }
 
+    public function link_permission($link = "")
+    {
+        $roleId = $this->session->userdata('sessionUserInfo')->role;        
+        $rolePermission = $this->role_permission();
+        $menuAction = $this->db->query("SELECT * FROM tbl_menu_actions WHERE action_link = '$link' AND status = 1")->row();
+        $linkStatus = false;
+
+        if (!empty($menuAction)) {
+            if ($roleId == 2) {
+                $linkStatus = true;
+            } else {
+                if (in_array($menuAction->id,$rolePermission)) {
+                    $linkStatus = true;
+                }                        
+            }
+        }
+        return $linkStatus;
+    }
+
     public function index_link()
     {
         $roleId = $this->session->userdata('sessionUserInfo')->role;
-        if ($roleId != 2) {
-            $userRole = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();
+        $userId = (int) $this->session->userdata('sessionUserInfo')->id;
+    	$rolePermission = [];
 
-            if ($userRole) {
-                $rolePermission = explode(',', $userRole->permission);
-            } else {
-                $rolePermission = [];
-            }            
+        if ($roleId == 2) {
+            $userMenuLists = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();            
         } else {
-            $rolePermission = [];
+            $userMenuLists = $this->db->query("SELECT * FROM tbl_users WHERE id = $userId")->row(); 
+        }
+
+        if ($userMenuLists) {
+            $rolePermission = explode(',', $userMenuLists->permission);
         }
 
         $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
@@ -78,7 +103,7 @@ class Link_model extends CI_Model {
     public function add_link()
     {
         $roleId = $this->session->userdata('sessionUserInfo')->role;
-        $rolePermission = $this->role_permission($roleId);
+        $rolePermission = $this->role_permission();
         $menuAction = $this->menu_action();
         $dataLink = '';
 
@@ -276,7 +301,7 @@ class Link_model extends CI_Model {
 
                 if ($menuType != "") {
                     if($menuType == 6){
-                        $dataLink = $action->menu_type;
+                        $dataLink = $action->action_link;
                     }
                 }
             }
@@ -288,7 +313,7 @@ class Link_model extends CI_Model {
     public function action($id = null)
     {
         $roleId = $this->session->userdata('sessionUserInfo')->role;
-        $rolePermission = $this->role_permission($roleId);
+        $rolePermission = $this->role_permission();
         $menuAction = $this->menu_action();
         $dataLink = '';
 
