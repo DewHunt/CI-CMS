@@ -16,9 +16,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Index()
+    public function index()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->IndexLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/index/'))) {
             redirect(base_url('login'));
         } else {
             $data = $this->HelperModel->GetAllData($tableName,$fieldName,$order);
@@ -35,9 +35,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Add()
+    public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/add/'))) {
             redirect(base_url('login'));
         } else {
             $this->data['title'] = "Add New Master";
@@ -54,9 +54,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Save()
+    public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->AddLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/add/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>";
@@ -80,9 +80,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Edit($id)
+    public function edit($id)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/edit/'))) {
             redirect(base_url('login'));
         } else {
             $dataInfo = $this->HelperModel->GetDataById($tableName,$id);
@@ -102,9 +102,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Update()
+    public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->EditLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/update/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>";
@@ -129,9 +129,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Delete()
+    public function delete()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->DeleteLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/delete/'))) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');
@@ -139,9 +139,9 @@ class Master extends Admin_Controller {
         }
     }
 
-    public function Status()
+    public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->StatusLink())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->LinkModel->link_permission('master/status/'))) {
             redirect(base_url('login'));
         } else {
             $id = $this->input->post('id');

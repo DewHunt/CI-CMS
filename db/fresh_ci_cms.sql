@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2020 at 08:52 PM
+-- Generation Time: Dec 06, 2020 at 09:33 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -123,7 +123,7 @@ INSERT INTO `tbl_menus` (`id`, `parent_menu`, `menu_name`, `menu_link`, `menu_ic
 (12, '6', 'Pages', 'page.index', 'ti-settings', 5, '1', '2020-05-10 05:09:10', '2020-05-10 05:09:10'),
 (13, NULL, 'User Management', '', 'ti-layout-grid2', 2, '1', NULL, '2020-07-08 23:25:07'),
 (15, '13', 'Admin Information', 'admininformation', 'ti-layout-grid2', 5, '1', '2020-07-09 00:45:20', '2020-07-09 00:45:20'),
-(16, NULL, 'No Sub Menu', 'NoSubMenu', 'ti-layout-grid2', 4, '1', NULL, NULL),
+(16, NULL, 'No Sub Menu', 'abc/def/no_sub_menu', 'ti-layout-grid2', 4, '1', NULL, NULL),
 (17, NULL, 'Multi Level Menu', '', 'ti-layout-grid2', 5, '1', NULL, NULL),
 (18, '17', 'Parent Menu 1', 'ParentMenuOne', 'ti-settings', 1, '1', NULL, NULL),
 (19, '18', 'Child Menu 1', 'ChildMenuOne', 'ti-files', 1, '1', NULL, NULL),
@@ -196,8 +196,8 @@ INSERT INTO `tbl_menu_actions` (`id`, `parent_menu_id`, `menu_type`, `action_nam
 (51, 12, 4, 'Delete', 'page.delete', 5, 1, '2020-05-10 05:12:01', '2020-05-10 05:12:01'),
 (52, 15, 1, 'Add', 'admininformation/add/', 1, 1, '2020-07-09 00:45:42', '2020-07-09 00:45:42'),
 (53, 15, 2, 'Edit', 'admininformation/edit/', 2, 1, '2020-07-09 00:45:50', '2020-07-09 00:45:50'),
-(54, 16, 1, 'Add', 'nosubmenu/add/', 1, 1, NULL, NULL),
-(55, 16, 2, 'Edit', 'nosubmenu/edit/', 2, 1, NULL, NULL),
+(54, 16, 1, 'Add', 'abc/def/no_sub_menu/add/', 1, 1, NULL, NULL),
+(55, 16, 2, 'Edit', 'abc/def/no_sub_menu/edit/', 2, 1, NULL, NULL),
 (56, 19, 1, 'Add', 'childmenu/add', 1, 1, NULL, NULL),
 (57, 19, 2, 'Edit', 'childmenu/edit/', 2, 1, NULL, NULL),
 (58, 5, 5, 'User Menu Permission', 'user/permission/', 3, 1, NULL, NULL);
@@ -407,7 +407,7 @@ CREATE TABLE `tbl_users` (
 INSERT INTO `tbl_users` (`id`, `name`, `email`, `user_name`, `image`, `role`, `permission`, `action_permission`, `password`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (4, 'Admin', 'admin@gmail.com', 'Admin', '/public/uploads/user_images/avatar7_20165942041.png', 2, '', '', '8cb2237d0679ca88db6464eac60da96345513964', 1, 'HftBsS0WaFhNaeki9GEnbTOdo99h14G9dS1WtBq9AJJkzUuSyNKsUxMufhEx', '2019-04-17 01:04:35', '2020-09-11 03:23:42'),
 (7, 'Jisan Ahmed', 'jisanahmed06@gmail.com', 'jisan', '/public/uploads/user_images/images_21444773304.jpg', 3, '1,16', '54,55', '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, '2019-08-30 21:43:55', '2019-11-26 22:25:40'),
-(11, 'Shamim', 'shamim@gmail.com', 'shamim', '/public/uploads/user_images/img00.jpg', 3, '1,13,5', '22,23,24', '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, NULL, NULL);
+(11, 'Shamim', 'shamim@gmail.com', 'shamim', '/public/uploads/user_images/img00.jpg', 3, '1,13,15', '52,53', '8cb2237d0679ca88db6464eac60da96345513964', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -433,7 +433,7 @@ CREATE TABLE `tbl_user_roles` (
 --
 
 INSERT INTO `tbl_user_roles` (`id`, `name`, `parent_role`, `level`, `order_by`, `status`, `permission`, `action_permission`, `created_at`, `updated_at`) VALUES
-(2, 'Super Admin', NULL, 1, 0, 1, '1,6,7,8,10,11,12,17,18,19,20,21,22,23,16,13,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,56,57,54,55,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,58,23,24,26,25,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
+(2, 'Super Admin', NULL, 1, 1, 1, '1,6,7,8,10,11,12,17,18,19,20,21,22,23,16,13,2,3,4,5,15', '28,29,30,31,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,56,57,54,55,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,58,23,24,26,25,52,53', '2019-04-17 00:50:05', '2020-07-09 00:46:03'),
 (3, 'Admin', 2, 1, NULL, 1, '1,16,13,2,3,4,5,15', '54,55,2,3,4,5,6,11,12,13,14,15,7,8,9,10,21,22,58,23,24,26,25,52,53', '2019-04-17 00:52:54', '2020-09-11 03:36:59'),
 (4, 'User', NULL, 1, NULL, 1, '1', '', '2020-03-07 00:49:33', '2020-07-09 00:35:23'),
 (5, 'Manager', NULL, NULL, 4, 1, '1,6,7', '28,29', NULL, NULL);

@@ -20,13 +20,7 @@ class User extends Admin_Controller {
 
     public function index()
     {
-        // if ($this->Link_model->link_permission('user/add/') === true) {
-        //     echo "TRUE";
-        // } else {
-        //     echo "FALSE";
-        // }
-        // exit();
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || $this->Link_model->link_permission('user/index/') === false) {
             redirect(base_url('login'));
         } else {
             $allUsers = $this->User_model->get_all_users();

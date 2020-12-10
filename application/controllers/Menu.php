@@ -18,7 +18,7 @@ class Menu extends Admin_Controller {
 
     public function index()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/index/'))) {
             redirect(base_url('login'));
         } else {
             $menus = $this->Menu_model->get_all_menu_list();
@@ -34,7 +34,7 @@ class Menu extends Admin_Controller {
 
     public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/add/'))) {
             redirect(base_url('login'));
         } else {
             // echo $this->Link_model->AddLink(); exit();
@@ -64,7 +64,7 @@ class Menu extends Admin_Controller {
 
     public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/add/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>";
@@ -105,7 +105,7 @@ class Menu extends Admin_Controller {
 
     public function edit($menuId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/edit/'))) {
             redirect(base_url('login'));
         } else {
             $menus = $this->Menu_model->get_all_menu_info();
@@ -127,7 +127,7 @@ class Menu extends Admin_Controller {
 
     public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/edit/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>";
@@ -170,7 +170,7 @@ class Menu extends Admin_Controller {
 
     public function delete()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->delete_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/delete/'))) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');
@@ -181,7 +181,7 @@ class Menu extends Admin_Controller {
 
     public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->status_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu/status/'))) {
             redirect(base_url('login'));
         } else {
             $id = $this->input->post('id');

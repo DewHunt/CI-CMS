@@ -18,7 +18,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function index()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/index/'))) {
             redirect(base_url('login'));
         } else {
 	        $menuActionTypes = $this->Helper_model->get_all_data('tbl_menu_action_type','action_id','ASC');
@@ -34,7 +34,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/add/'))) {
             redirect(base_url('login'));
         } else {
 	        $maxActionId = $this->Menu_action_type_model->get_max_action();
@@ -59,7 +59,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/add/'))) {
             redirect(base_url('login'));
         } else {
 	    	// echo "<pre>"; print_r($this->input->post()); exit();
@@ -85,7 +85,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function edit($menuActionTypeId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/edit/'))) {
             redirect(base_url('login'));
         } else {
 	        $menuActionTypeInfo = $this->Helper_model->get_data_by_id('tbl_menu_action_type',$menuActionTypeId);
@@ -104,7 +104,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/edit/'))) {
             redirect(base_url('login'));
         } else {
 	    	// echo "<pre>"; print_r($this->input->post()); exit();
@@ -133,7 +133,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function delete()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->delete_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/delete/'))) {
             redirect(base_url('login'));
         } else {
 	    	$id = $this->input->post('id');
@@ -143,7 +143,7 @@ class Menu_action_type extends Admin_Controller {
 
     public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->status_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('menu_action_type/status/'))) {
             redirect(base_url('login'));
         } else {
 	    	$id = $this->input->post('id');

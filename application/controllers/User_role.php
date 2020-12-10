@@ -18,7 +18,7 @@ class User_role extends Admin_Controller {
 
     public function index()
     {        
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->index_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/index/'))) {
             redirect(base_url('login'));
         } else {
             $allUserRole = $this->Helper_model->get_all_data('tbl_user_roles','name','ASC');
@@ -34,7 +34,7 @@ class User_role extends Admin_Controller {
 
     public function add()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/add/'))) {
             redirect(base_url('login'));
         } else {
             $this->data['title'] = "Add New User Role";
@@ -49,7 +49,7 @@ class User_role extends Admin_Controller {
 
     public function save()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->add_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/add/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>"; print_r($this->input->post()); exit();
@@ -78,7 +78,7 @@ class User_role extends Admin_Controller {
 
     public function edit($userRoleId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/edit/'))) {
             redirect(base_url('login'));
         } else {
             $userRoleInfo = $this->Helper_model->get_data_by_id('tbl_user_roles',$userRoleId);
@@ -97,7 +97,7 @@ class User_role extends Admin_Controller {
 
     public function update()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->edit_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/edit/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>"; print_r($this->input->post()); exit();
@@ -128,7 +128,7 @@ class User_role extends Admin_Controller {
 
     public function permission($userRoleId)
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->permission_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/permission/'))) {
             redirect(base_url('login'));
         } else {
         	$userMenus = $this->Menu_model->get_all_menu_info();
@@ -153,7 +153,7 @@ class User_role extends Admin_Controller {
 
     public function update_permission()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->permission_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/permission/'))) {
             redirect(base_url('login'));
         } else {
         	// echo "<pre>"; print_r($this->input->post()); exit();
@@ -186,7 +186,7 @@ class User_role extends Admin_Controller {
 
     public function delete()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->delete_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/delete/'))) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');
@@ -196,7 +196,7 @@ class User_role extends Admin_Controller {
 
     public function status()
     {
-        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->status_link())) {
+        if (empty($this->session->userdata('sessionUserInfo')) || empty($this->Link_model->link_permission('user_role/status/'))) {
             redirect(base_url('login'));
         } else {
         	$id = $this->input->post('id');

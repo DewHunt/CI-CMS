@@ -39,10 +39,46 @@ class Link_model extends CI_Model {
         return $menuAction;
     }
 
+    // public function go_back_link()
+    // {
+    //     $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
+    //     $dataLink = base_url($routeName);
+    //     $dataLink = '<a class="btn btn-outline-info btn-lg" href="'.base_url($routeName).'"><i class="fa fa-arrow-circle-left"></i> Go Back</a>';
+        
+    //     return $dataLink;
+    // }
+
     public function go_back_link()
     {
-        $routeName = $this->uri->segment(1) == '' ? 'home' : $this->uri->segment(1);
-        $dataLink = base_url($routeName);
+        if ($this->uri->segment(1) == '') {
+            $routeName = 'home';
+        }
+        else {
+            $url = preg_split("#/#", uri_string());
+            $countUrl = count($url);
+            
+            if ($countUrl == 1) {
+                $routeName  = uri_string();
+            }
+            else {
+                $menuLink = uri_string();
+                $isUrlController = $this->db->query("SELECT * FROM tbl_menus WHERE menu_link = '$menuLink'")->row();
+
+                if (empty($isUrlController)) {
+                    $lastUrlWord = $url[$countUrl - 2].'/'.$url[$countUrl - 1];
+                    for ($i=0; $i < $countUrl; $i++) {
+                        if ($url[$i] == 'add') {
+                            $lastUrlWord = $url[$countUrl - 1];
+                            break;
+                        }
+                    }
+                    $routeName  = str_replace($lastUrlWord, "", uri_string());
+                }
+                else {
+                    $routeName  = $isUrlController->menu_link;
+                }
+            }
+        }
         $dataLink = '<a class="btn btn-outline-info btn-lg" href="'.base_url($routeName).'"><i class="fa fa-arrow-circle-left"></i> Go Back</a>';
         
         return $dataLink;
@@ -50,20 +86,44 @@ class Link_model extends CI_Model {
 
     public function link_permission($link = "")
     {
-        $roleId = $this->session->userdata('sessionUserInfo')->role;        
-        $rolePermission = $this->role_permission();
-        $menuAction = $this->db->query("SELECT * FROM tbl_menu_actions WHERE action_link = '$link' AND status = 1")->row();
-        $linkStatus = false;
+        $roleId = $this->session->userdata('sessionUserInfo')->role;
+        $userId = (int) $this->session->userdata('sessionUserInfo')->id;
+        $linkWords = preg_split("#/#", $link);
 
-        if (!empty($menuAction)) {
+        if ($roleId == 2) {
+            $userMenuLists = $this->db->query("SELECT * FROM tbl_user_roles WHERE id = $roleId")->row();            
+        } else {
+            $userMenuLists = $this->db->query("SELECT * FROM tbl_users WHERE id = $userId")->row(); 
+        }
+
+        for ($i=0; $i < count($linkWords); $i++) {
+            $permissionStatus = false;
+            if ($linkWords[$i] == 'index') {
+                $link  = str_replace('/index/', '', $link);
+                $permissionStatus = true;
+                $rolePermission = explode(',', $userMenuLists->permission);
+                $menuPermission = $this->db->query("SELECT * FROM tbl_menus WHERE menu_link = '$link' AND status = 1")->row();
+                break;
+            }
+        }
+
+        if ($permissionStatus == false) {
+            $rolePermission = explode(',', $userMenuLists->action_permission);
+            $menuPermission = $this->db->query("SELECT * FROM tbl_menu_actions WHERE action_link = '$link' AND status = 1")->row();
+        }
+        
+        $linkStatus = 'false';
+
+        if (!empty($menuPermission)) {
             if ($roleId == 2) {
-                $linkStatus = true;
+                $linkStatus = 'true';
             } else {
-                if (in_array($menuAction->id,$rolePermission)) {
-                    $linkStatus = true;
+                if (in_array($menuPermission->id,$rolePermission)) {
+                    $linkStatus = 'true';
                 }                        
             }
         }
+        
         return $linkStatus;
     }
 
